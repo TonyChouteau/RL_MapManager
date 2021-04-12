@@ -1,14 +1,19 @@
 # RL_MapManager
+
 A map manage for Rocket League (Epic version) made with Electron
 
-# Use it
+## Use the App
 
-## Install
+>TODO
+
+## Development
+
+### Install
 
 `$ npm i --save-dev electron` \
 `$ npm start`
 
-## Build
+### Build
 
 `$ npm install --save-dev @electron-forge/cli` \
 `$ npx electron-forge import` \
