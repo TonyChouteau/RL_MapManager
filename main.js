@@ -6,7 +6,7 @@ function createWindow() {
 
 	const win = new BrowserWindow({
 		src: "./src",
-		icon:'./src/images/app_icon.png',
+		icon:'./images/app_icon.ico',
 		width: 1000,
 		height: 600,
 		backgroundColor: "black",
@@ -14,10 +14,14 @@ function createWindow() {
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 		},
+		show: false,
 	});
 
 	win.loadFile('index.html');
 	win.removeMenu();
+	win.once('ready-to-show', () => {
+		win.show()
+	})
 	//win.webContents.openDevTools();
 }
 

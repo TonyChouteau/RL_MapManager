@@ -13,8 +13,13 @@ A map manage for Rocket League (Epic version) made with Electron
 `$ npm i --save-dev electron` \
 `$ npm start`
 
-### Build
+### Build with electron-forge
 
 `$ npm install --save-dev @electron-forge/cli` \
 `$ npx electron-forge import` \
+`$ npm run make-forge`
+
+### Build with electron-packager
+
+`$ npm install electron-packager --save-dev` \
 `$ npm run make`

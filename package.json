@@ -1,13 +1,15 @@
 {
-	"name": "RL_MapManager",
+	"name": "rl-map-manager",
+	"productName": "Rocket League Map Manager",
 	"version": "1.0.0",
 	"description": "A map manage for Rocket League (Epic version) made with Electron",
 	"main": "main.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "node ./tests/test-zip.js",
 		"start": "electron-forge start",
 		"package": "electron-forge package",
-		"make": "electron-forge make"
+		"make-forge": "electron-forge make",
+		"make": "electron-packager . RL_Map_Manager --overwrite --asar --platform=win32 --arch=x64 --icon=./src/images/app_icon.ico --prune=true --out=release-builds"
 	},
 	"repository": {
 		"type": "git",
@@ -26,9 +28,11 @@
 		"@electron-forge/maker-rpm": "^6.0.0-beta.54",
 		"@electron-forge/maker-squirrel": "^6.0.0-beta.54",
 		"@electron-forge/maker-zip": "^6.0.0-beta.54",
-		"electron": "^12.0.2"
+		"electron": "^12.0.2",
+		"electron-packager": "^15.2.0"
 	},
 	"dependencies": {
+		"adm-zip": "^0.5.5",
 		"electron-squirrel-startup": "^1.0.0"
 	},
 	"config": {
