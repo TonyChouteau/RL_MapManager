@@ -1,12 +1,7 @@
-window.addEventListener('DOMContentLoaded', () => {
-	const replaceText = (selector, text) => {
-		const element = document.getElementById(selector);
-		if (element) element.innerText = text;
-	};
+const {config} = require('./config');
 
-	for (const type of ['chrome', 'node', 'electron']) {
-		replaceText(`${type}-version`, process.versions[type]);
-	}
+window.addEventListener('DOMContentLoaded', () => {
+	
 });
 
 win.webContents.on("devtools-opened", () => { win.webContents.closeDevTools(); });

@@ -1,14 +1,16 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const {config} = require('./config');
 
 function createWindow() {
+
 	const win = new BrowserWindow({
 		src: "./src",
 		icon:'./src/images/app_icon.png',
 		width: 1000,
 		height: 600,
 		backgroundColor: "black",
-		title: "Rocket League Map Manager",
+		title: config.appName,
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 		},
