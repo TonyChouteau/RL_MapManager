@@ -9,7 +9,8 @@
 		"start": "electron-forge start",
 		"package": "electron-forge package",
 		"make-forge": "electron-forge make",
-		"make": "electron-packager . RL_Map_Manager --overwrite --asar --platform=win32 --arch=x64 --icon=./src/images/app_icon.ico --prune=true --out=release-builds"
+		"make": "electron-packager . RL_Map_Manager --overwrite --asar --platform=win32 --arch=x64 --icon=./src/images/app_icon.ico --prune=true --out=release-builds",
+		"build": "electron-builder --win --ia32"
 	},
 	"repository": {
 		"type": "git",
@@ -29,11 +30,12 @@
 		"@electron-forge/maker-squirrel": "^6.0.0-beta.54",
 		"@electron-forge/maker-zip": "^6.0.0-beta.54",
 		"electron": "^12.0.2",
-		"electron-packager": "^15.2.0"
+		"electron-builder": "^22.10.5",
+		"electron-packager": "^15.2.0",
+		"electron-squirrel-startup": "^1.0.0"
 	},
 	"dependencies": {
-		"adm-zip": "^0.5.5",
-		"electron-squirrel-startup": "^1.0.0"
+		"adm-zip": "^0.5.5"
 	},
 	"config": {
 		"forge": {
@@ -63,5 +65,14 @@
 				}
 			]
 		}
+	},
+	"build": {
+		"files": [
+			"!out",
+			"!release-builds",
+			"!tests",
+			"!doc",
+			"!tmp"
+		]
 	}
 }
