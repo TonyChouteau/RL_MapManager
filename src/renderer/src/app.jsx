@@ -4,8 +4,6 @@ function App(props) {
   let content = clicked ?
     <div>
       <p>You liked this</p>
-      <Test/>
-      <Test2/>
     </div> :
     <button onClick={() => {setClicked(true)}}>Like</button>;
   

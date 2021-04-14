@@ -13,9 +13,7 @@ function App(props) {
       'p',
       null,
       'You liked this'
-    ),
-    React.createElement(Test, null),
-    React.createElement(Test2, null)
+    )
   ) : React.createElement(
     'button',
     { onClick: function onClick() {
