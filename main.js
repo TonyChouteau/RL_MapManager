@@ -4,20 +4,26 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 
 // Own Modules
-const { config } = require('./config');
+const { config } = require('./src/config');
+const FileManager = require("./src/engine/FileManager");
+
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
+let win;
+
+function defineAPI() {
+	// Add Api Access to NodeJS
+	let fileManager = FileManager(win).addIpcListener();
+}
 
 // Make the Window
 function createWindow() {
-	const win = new BrowserWindow({
+	win = new BrowserWindow({
 		src: "./",
 		icon:'./build/app_icon.ico',
 		width: 1000,
 		height: 600,
 		backgroundColor: 'black',
-		title: config.appName,
-        nodeIntegration: false,
-        contextIsolation: true,
-        enableRemoteModule: false,
 		webPreferences: {
 			nodeIntegration: false,
 			webSecurity: true,
@@ -25,17 +31,19 @@ function createWindow() {
 			allowRunningInsecureContent: false,
 			contextIsolation: true,
 			enableRemoteModule: false,
-			preload: path.join(__dirname, './preload.js'),
+			preload: path.join(__dirname, config.preload_path, './preload.js'),
 		},
 		show: false,
 	});
 
-	win.loadFile(config.public_path + 'index.html');
+	win.loadFile(config.public_path + './index.html');
 	win.removeMenu();
 	win.once('ready-to-show', () => {
 		win.show();
 	});
 	win.webContents.openDevTools();
+
+	defineAPI();
 }
 
 // App Entry

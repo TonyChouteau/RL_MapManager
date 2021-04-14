@@ -12,7 +12,7 @@
 		"make": "electron-packager . RL_Map_Manager --overwrite --asar --platform=win32 --arch=x64 --icon=./src/images/app_icon.ico --prune=true --out=release-builds",
 		"clean": "rimraf ./dist/*",
 		"build": "electron-builder --win --ia32",
-		"react": "babel --watch renderer/src --out-dir renderer/public/scripts --presets react-app/prod"
+		"react": "babel --watch src/renderer/src --out-dir src/renderer/public/scripts --presets react-app/prod"
 	},
 	"repository": {
 		"type": "git",
@@ -81,15 +81,11 @@
 			"!tmp",
 			"!dist"
 		],
-		"asar": false,
 		"nsis": {
 			"include": "./build/installer.nsh"
 		},
 		"win": {
-			"icon": "./build/app_icon.ico",
-			"target": [
-				"portable"
-			]
+			"icon": "./build/app_icon.ico"
 		}
 	}
 }
