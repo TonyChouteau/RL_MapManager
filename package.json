@@ -10,7 +10,9 @@
 		"package": "electron-forge package",
 		"make-forge": "electron-forge make",
 		"make": "electron-packager . RL_Map_Manager --overwrite --asar --platform=win32 --arch=x64 --icon=./src/images/app_icon.ico --prune=true --out=release-builds",
-		"build": "electron-builder --win --ia32"
+		"clean": "rimraf ./dist/*",
+		"build": "electron-builder --win --ia32",
+		"react": "babel --watch renderer/src --out-dir renderer/public/scripts --presets react-app/prod"
 	},
 	"repository": {
 		"type": "git",
@@ -29,18 +31,21 @@
 		"@electron-forge/maker-rpm": "^6.0.0-beta.54",
 		"@electron-forge/maker-squirrel": "^6.0.0-beta.54",
 		"@electron-forge/maker-zip": "^6.0.0-beta.54",
-		"electron": "^12.0.2",
+		"babel-cli": "^6.26.0",
+		"babel-preset-react-app": "^3.1.2",
+		"electron": "^12.0.4",
 		"electron-builder": "^22.10.5",
 		"electron-packager": "^15.2.0",
 		"electron-squirrel-startup": "^1.0.0"
 	},
 	"dependencies": {
-		"adm-zip": "^0.5.5"
+		"adm-zip": "^0.5.5",
+		"electron-is-dev": "^2.0.0"
 	},
 	"config": {
 		"forge": {
 			"packagerConfig": {
-				"icon": "./src/images/app_icon.ico"
+				"icon": "./src/images/app_icon.png"
 			},
 			"makers": [
 				{
@@ -67,12 +72,24 @@
 		}
 	},
 	"build": {
+		"productName": "RL Map Manager",
 		"files": [
 			"!out",
 			"!release-builds",
 			"!tests",
 			"!doc",
-			"!tmp"
-		]
+			"!tmp",
+			"!dist"
+		],
+		"asar": false,
+		"nsis": {
+			"include": "./build/installer.nsh"
+		},
+		"win": {
+			"icon": "./build/app_icon.ico",
+			"target": [
+				"portable"
+			]
+		}
 	}
 }
