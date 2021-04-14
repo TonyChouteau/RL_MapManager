@@ -18,18 +18,17 @@
 </head>
 
 <body>
-	<div id="scripts" style="display: none;"></div>
+	<div id="scripts"></div>
 	<div id="app"></div>
 	<script>
-        window.api.receive("fromFileManager", (data) => {
-            console.log(`Received ${data.join(", ")} from main process`);
-        });
-        window.api.send("toFileManager", "some data");
+        // window.api.receive("fromFileManager", (data) => {
+        //     console.log(`Received ${data} from main process`)
+        // });
+		window.api.receive("ready", (data) => {
+			window.api.send("load", "some data");
+		});
+        //window.api.send("toFileManager", "some data");
     </script>
-
-	<script src="./scripts/0_.js"></script>
-	<script src="./scripts/app.js"></script>
-	<script src="./scripts/zapp.js"></script>
 </body>
 
 </html>

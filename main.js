@@ -11,7 +11,7 @@ const FileManager = require("./src/engine/FileManager");
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
-function defineAPI() {
+function defineAPI(win) {
 	// Add Api Access to NodeJS
 	let fileManager = FileManager(win).addIpcListener();
 }
@@ -25,12 +25,9 @@ function createWindow() {
 		height: 600,
 		backgroundColor: 'black',
 		webPreferences: {
-			nodeIntegration: false,
-			webSecurity: true,
-			allowEval: false,
-			allowRunningInsecureContent: false,
-			contextIsolation: true,
-			enableRemoteModule: false,
+			contextIsolation: true, // protect against prototype pollution
+			nodeIntegration: true, // is default value after Electron v5
+			enableRemoteModule: true, // turn off remote
 			preload: path.join(__dirname, config.preload_path, './preload.js'),
 		},
 		show: false,
@@ -43,7 +40,9 @@ function createWindow() {
 	});
 	win.webContents.openDevTools();
 
-	defineAPI();
+	win.webContents.once('dom-ready', () => {
+		defineAPI(win);
+	});
 }
 
 // App Entry

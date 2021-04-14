@@ -9,17 +9,24 @@ let FileManager = function (win) {
 
 	this.init = function(win) {
 		this.win = win;
+		this.win.webContents.send('ready');
 	}
 	this.init(win);
 
 	this.addIpcListener = function() {
-		ipcMain.on('toFileManager', () => {
-			fs.readdir(config.script_folder, (err, files) => {
+		ipcMain.on('load', (channel, data) => {
+			let folder = path.join(__dirname, config.script_folder);
+			fs.readdir(folder, (err, files) => {
 				if (err) return;
-				this.win.webContents.send('fromFileManager', files);
+				this.win.webContents.send('load', files);
+				files.forEach(file => {
+					fs.readFile(path.join(folder, file), "utf8", (err, data) => {
+						if (err) return;
+						this.win.webContents.executeJavaScript(data);
+					})
+				})
 			});
 		});
-		return FileManager;
 	};
 	
 };

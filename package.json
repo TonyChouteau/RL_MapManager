@@ -84,8 +84,12 @@
 		"nsis": {
 			"include": "./build/installer.nsh"
 		},
+		"asar": true,
 		"win": {
-			"icon": "./build/app_icon.ico"
+			"icon": "./build/app_icon.ico",
+			"target": [
+				"portable"
+			]
 		}
 	}
 }
