@@ -21,8 +21,9 @@ function createWindow() {
 	win = new BrowserWindow({
 		src: "./",
 		icon:'./build/app_icon.ico',
-		width: 1000,
-		height: 600,
+		width: 1100,
+		height: 700,
+		resizable: false,
 		backgroundColor: 'black',
 		webPreferences: {
 			contextIsolation: true, // protect against prototype pollution

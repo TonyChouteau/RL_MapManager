@@ -9,26 +9,36 @@
 	<link href="./styles/index.css" type="text/css" rel="stylesheet"/>
 
 	<!-- Development scripts -->
-	<script src="./libs/react.js" crossorigin></script>
-	<script src="./libs/react-dom.js" crossorigin></script>
+	<script src="./libs/dev/react.js" crossorigin></script>
+	<script src="./libs/dev/reactdom.js" crossorigin></script>
 	<!-- Production scripts -->
 	<!-- <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
 	<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script> -->
-
 </head>
 
 <body>
+	<!-- App Entry Point -->
 	<div id="scripts"></div>
 	<div id="app"></div>
+	
+	<!-- React Api Load -->
 	<script>
-        // window.api.receive("fromFileManager", (data) => {
-        //     console.log(`Received ${data} from main process`)
-        // });
-		window.api.receive("ready", (data) => {
-			window.api.send("load", "some data");
+		window.api.receive("ready", (appName) => {
+			document.title = appName;
 		});
-        //window.api.send("toFileManager", "some data");
     </script>
+
+	<!-- Config -->
+	<script src="./scripts/Config.js"></script>
+	
+	<!-- React Components -->
+	<!-- Header -->
+	<script src="./scripts/header/Header.js"></script>
+	<!-- Content -->
+	<script src="./scripts/content/Content.js"></script>
+
+	<!-- Main React Component -->
+	<script src="./scripts/App.js"></script>
 </body>
 
 </html>
