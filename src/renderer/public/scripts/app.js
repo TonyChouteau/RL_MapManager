@@ -31,16 +31,18 @@ function App(props) {
 	// Define React state
 
 
-	var _React$useState = React.useState(config.states.LIST),
+	var _React$useState = React.useState(config.states.SETTINGS),
 	    _React$useState2 = _slicedToArray(_React$useState, 2),
 	    state = _React$useState2[0],
 	    setState = _React$useState2[1];
 
-	setTimeout(function () {
-		setState((state + 1) % config.TOTAL_STATES);
-	}, 2000);
+	// setTimeout(() => {
+	// 	setState((state + 1) % config.TOTAL_STATES);
+	// }, 2000);
 
 	// Renderer
+
+
 	return React.createElement(
 		'div',
 		{ style: styleContainer },

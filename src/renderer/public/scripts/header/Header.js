@@ -1,9 +1,8 @@
 function Header(props) {
-
 	// Define the makeStyles function
 	this.makeStyles = function (css) {
 		var headerStyle = {
-			width: "100%"
+			width: '100%'
 		};
 
 		return headerStyle;
@@ -19,8 +18,12 @@ function Header(props) {
 
 	// Renderer
 	return React.createElement(
-		"div",
+		'div',
 		{ style: headerStyle },
-		this.getTitle(props.state)
+		React.createElement(
+			Title,
+			null,
+			config.statesName[props.state]
+		)
 	);
 }

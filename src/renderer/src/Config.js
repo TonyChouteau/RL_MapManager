@@ -4,6 +4,11 @@ let config = {
 		IMPORT: 1,
 		SETTINGS: 2,
 	},
+	statesName: [
+		"",
+		"IMPORT A MAP",
+		"SETTINGS"
+	],
 	TOTAL_STATES: 3,
 	css: {
 		colors: {

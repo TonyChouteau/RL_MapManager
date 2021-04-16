@@ -24,18 +24,18 @@ function App(props) {
 	const { styleContainer, styleContainer2 } = this.makeStyles(config.css);
 
 	// Define React state
-	const [state, setState] = React.useState(config.states.LIST);
+	const [state, setState] = React.useState(config.states.SETTINGS);
 
-	setTimeout(() => {
-		setState((state + 1) % config.TOTAL_STATES);
-	}, 2000);
+	// setTimeout(() => {
+	// 	setState((state + 1) % config.TOTAL_STATES);
+	// }, 2000);
 
 	// Renderer
 	return (
 		<div style={styleContainer}>
 			<div style={styleContainer2}>
-				<Header state={state}></Header>
-				<Content></Content>
+				<Header state={state}/>
+				<Content />
 			</div>
 		</div>
 	);
