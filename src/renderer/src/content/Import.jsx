@@ -1,4 +1,12 @@
 function Import(props) {
+	// Set states
+	const [importPath, setImportPath] = React.useState("");
+	handler.getImportPath((path) => {
+		if (path !== importPath) {
+			setImportPath(path);
+		}
+	});
+
 	// Define the makeStyles function
 	function makeStyles(css) {
 		let importStyle = {
@@ -11,7 +19,9 @@ function Import(props) {
 
 		let row2 = {
 			font: css.font.content,
-			color: css.colors.text2,
+			color: config.allowedExtensions.includes(importPath.split('.').slice(-1)[0])
+				? css.colors.textSuccess
+				: css.colors.textError,
 		};
 		let rowContent = css.rowContent;
 
@@ -27,8 +37,8 @@ function Import(props) {
 				<div style={rowContent}>New Map File (.zip, .udk, .upk) :</div>
 			</Row>
 			<Row style={row2}>
-				<div style={rowContent}>-</div>
-				<Button onClick={props.onGameFolderEdit} style={rowContent}>
+				<div style={rowContent}>{importPath || '-'}</div>
+				<Button onClick={() => {props.onMapImport(importPath)}} style={rowContent}>
 					<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
 				</Button>
 			</Row>

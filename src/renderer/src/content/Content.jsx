@@ -16,13 +16,19 @@ function Content(props) {
 		switch (props.state) {
 			case config.states.LIST:
 				return <div>Table</div>;
-				break;
+
 			case config.states.IMPORT:
-				return <Import appFolder={props.appFolder}/>;
-				break;
+				return <Import onMapImport={props.onMapImport} />;
+
 			case config.states.SETTINGS:
-				return <Settings appFolder={props.appFolder} gameFolder={props.gameFolder} onAppFolderEdit={props.onAppFolderEdit} onGameFolderEdit={props.onGameFolderEdit} />;
-				break;
+				return (
+					<Settings
+						appFolder={props.appFolder}
+						gameFolder={props.gameFolder}
+						onAppFolderEdit={props.onAppFolderEdit}
+						onGameFolderEdit={props.onGameFolderEdit}
+					/>
+				);
 		}
 	}
 

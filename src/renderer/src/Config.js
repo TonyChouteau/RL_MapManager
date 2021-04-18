@@ -15,6 +15,8 @@ let config = {
 		colors: {
 			text1: '#FFF',
 			text2: '#999999',
+			textSuccess: '#00CC00',
+			textError: '#CC0000',
 			line1: '#5B5B5B',
 			line2: '#4F4F4F',
 			background: '#666666',
@@ -62,4 +64,5 @@ let config = {
 		ADD: 'add_icon.svg',
 	},
 	gamePathDefault: 'Exemple: "C:\\Program Files (x86)\\rocketleague"',
+	allowedExtensions: ['zip', 'rar', 'udk', 'upk'],
 };

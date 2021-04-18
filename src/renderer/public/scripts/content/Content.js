@@ -24,13 +24,17 @@ function Content(props) {
 					null,
 					'Table'
 				);
-				break;
+
 			case config.states.IMPORT:
-				return React.createElement(Import, { appFolder: props.appFolder });
-				break;
+				return React.createElement(Import, { onMapImport: props.onMapImport });
+
 			case config.states.SETTINGS:
-				return React.createElement(Settings, { appFolder: props.appFolder, gameFolder: props.gameFolder, onAppFolderEdit: props.onAppFolderEdit, onGameFolderEdit: props.onGameFolderEdit });
-				break;
+				return React.createElement(Settings, {
+					appFolder: props.appFolder,
+					gameFolder: props.gameFolder,
+					onAppFolderEdit: props.onAppFolderEdit,
+					onGameFolderEdit: props.onGameFolderEdit
+				});
 		}
 	}
 

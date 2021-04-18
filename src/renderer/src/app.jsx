@@ -30,13 +30,13 @@ function App(props) {
 		setState(state);
 	}
 
-	const [appFolder, setAppFolder] = React.useState("Not defined");
-	const [gameFolder, setGameFolder] = React.useState(null);
+	const [appFolder, setAppFolder] = React.useState('Not defined');
 	handler.getAppPath((path) => {
 		if (path !== appFolder) {
 			setAppFolder(path);
 		}
 	});
+	const [gameFolder, setGameFolder] = React.useState(null);
 	handler.getGamePath((path) => {
 		if (path !== gameFolder) {
 			setGameFolder(path);
@@ -48,7 +48,16 @@ function App(props) {
 		<div style={styleContainer}>
 			<div style={styleContainer2}>
 				<Header state={state} size={config.css.iconSize} handleStateChange={handleStateChange} />
-				<Content state={state} appFolder={appFolder} gameFolder={gameFolder} onAppFolderEdit={handler.editAppFolder} onGameFolderEdit={handler.editGameFolder}/>
+				<Content
+					state={state}
+					// Settings
+					appFolder={appFolder}
+					gameFolder={gameFolder}
+					onAppFolderEdit={handler.editAppFolder}
+					onGameFolderEdit={handler.editGameFolder}
+					// Import
+					onMapImport={handler.importMap}
+				/>
 			</div>
 		</div>
 	);

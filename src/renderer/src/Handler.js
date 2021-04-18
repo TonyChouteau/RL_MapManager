@@ -22,6 +22,12 @@ Handler.prototype = {
 				this.gamePathHandler(path);
 			}
 		});
+		window.api.receive('to-open', (path) => {
+			this.importPath = path;
+			if (this.importPathHandler) {
+				this.importPathHandler(path);
+			}
+		});
 		window.api.send('get-path');
 	},
 
@@ -40,6 +46,12 @@ Handler.prototype = {
 			return handler(this.gamePath);
 		}
 	},
+	getImportPath: function(handler) {
+		this.importPathHandler = handler;
+		if (this.importPath) {
+			return handler(this.importPath);
+		}
+	},
 
 	// Edit Path Handler
 	editAppFolder: function () {
@@ -51,14 +63,14 @@ Handler.prototype = {
 	editGameFolder: function () {
 		window.api.send('edit-folder', {
 			type: 'game',
-			title: config.gamePathDefault,
+			title: 'Select the game folder',
 		});
 	},
 
-	importMap: function () {
-		window.api.send('edit-folder', {
-			type: 'game',
-			title: config.gamePathDefault,
+	importMap: function (path) {
+		window.api.send('import', {
+			title: 'Select the new map to import (.zip, .udk, .upk)',
+			defaultPath: path,
 		});
 	},
 };

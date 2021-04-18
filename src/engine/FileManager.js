@@ -9,15 +9,16 @@ const { config } = require('../config');
 
 let FileManager = function (win, app) {
 	this.saveData = function (type, newPath) {
-		console.log('Saving');
 		let savePath = path.join(config.save_path, 'save.json');
 		fs.access(savePath, (err) => {
 			if (err) {
-				fs.writeFile(savePath, '{"' + type + '":"' + newPath + '"}', () => {});
+				let data = {};
+				data[type] = newPath;
+				fs.writeFile(savePath, JSON.stringify(data), () => {});
 			} else {
 				fs.readFile(savePath, 'utf8', (err, data) => {
 					if (err) return;
-					let dataJson = JSON.parse(data || "{}");
+					let dataJson = JSON.parse(data || '{}');
 					dataJson[type] = newPath;
 					fs.writeFile(savePath, JSON.stringify(dataJson), () => {});
 				});
@@ -34,7 +35,7 @@ let FileManager = function (win, app) {
 				if (!err) {
 					fs.readFile(savePath, 'utf8', (err, data) => {
 						if (err) return;
-						let dataJson = JSON.parse(data || "{}");
+						let dataJson = JSON.parse(data || '{}');
 						if (dataJson.game) {
 							this.currentGamePath = dataJson.game;
 							this.win.webContents.send('game-path', dataJson.game);
@@ -50,8 +51,7 @@ let FileManager = function (win, app) {
 		});
 		ipcMain.on('edit-folder', (_, data) => {
 			let defaultPath = this.currentAppPath;
-			console.log(data.type, this.currentGamePath)
-			if (data.type === "game" && this.currentGamePath) {
+			if (data.type === 'game' && this.currentGamePath) {
 				defaultPath = this.currentGamePath;
 			}
 			dialog
@@ -62,14 +62,29 @@ let FileManager = function (win, app) {
 				})
 				.then((rep) => {
 					if (!rep.canceled) {
-						const newPath = rep.filePaths[0].replaceAll("\\", "/");
+						const newPath = rep.filePaths[0]; //.replaceAll("\\", "\\\\");
 						this.saveData(data.type, newPath);
-						if (data.type === "app") {
+						if (data.type === 'app') {
 							this.currentAppPath = newPath;
 						} else {
 							this.currentGamePath = newPath;
 						}
 						this.win.webContents.send(data.type + '-path', newPath);
+					}
+				});
+		});
+		ipcMain.on('import', (_, data) => {
+			let defaultPath = this.currentAppPath;
+			dialog
+				.showOpenDialog(this.win, {
+					title: data.title,
+					defaultPath: data.defaultPath,
+					properties: ['openFile'],
+				})
+				.then((rep) => {
+					if (!rep.canceled) {
+						const newPath = rep.filePaths[0];
+						this.win.webContents.send("to-open", newPath);
 					}
 				});
 		});
