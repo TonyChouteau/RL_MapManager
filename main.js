@@ -21,8 +21,8 @@ function createWindow() {
 	win = new BrowserWindow({
 		src: "./",
 		icon:'./build/app_icon.ico',
-		width: 1100,
-		height: 700,
+		width: 900,
+		height: 600,
 		resizable: false,
 		backgroundColor: 'black',
 		webPreferences: {

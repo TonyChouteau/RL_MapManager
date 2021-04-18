@@ -1,24 +1,57 @@
 let Handler = function () {
-	this.path = null;
+	this.appPath = null;
+	this.gamePath = null;
+
+	window.api.receive('ready', (appName) => {
+		document.title = appName;
+		handler.addIpcListener();
+	});
 };
 
 Handler.prototype = {
-	addIpcListener: function() {
+	addIpcListener: function () {
 		window.api.receive('app-path', (path) => {
-			this.path = path;
-			if (this.pathHandler) {
-				this.pathHandler(path);
-				this.pathHandler = null;
+			this.appPath = path;
+			if (this.appPathHandler) {
+				this.appPathHandler(path);
 			}
 		});
-		window.api.send('get-app-path', "data");
+		window.api.receive('game-path', (path) => {
+			this.gamePath = path;
+			if (this.gamePathHandler) {
+				this.gamePathHandler(path);
+			}
+		});
+		window.api.send('get-path');
 	},
 
-	getPath: function(handler) {
-		if (this.path) {
-			return this.path;
-		} else {
-			this.pathHandler = handler;
+	// Asynchronous Getters
+	getAppPath: function (handler) {
+		this.appPathHandler = handler
+		
+		if (this.appPath) {
+			return handler(this.appPath);
 		}
+	},
+	getGamePath: function (handler) {
+		this.gamePathHandler = handler;
+		
+		if (this.gamePath) {
+			return handler(this.gamePath);
+		}
+	},
+
+	// Edit Path Handler
+	editAppFolder: function () {
+		window.api.send('edit-folder', {
+			type: 'app',
+			title: 'Choose the folder to save custom maps',
+		});
+	},
+	editGameFolder: function () {
+		window.api.send('edit-folder', {
+			type: 'game',
+			title: config.gamePathDefault,
+		});
 	},
 };

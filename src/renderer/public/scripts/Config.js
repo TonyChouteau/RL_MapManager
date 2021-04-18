@@ -54,5 +54,6 @@ var config = {
 		EDIT: 'edit_icon.svg',
 		SETTINGS: 'settings_icon.svg',
 		ADD: 'add_icon.svg'
-	}
+	},
+	gamePathDefault: 'Exemple: "C:\\Program Files (x86)\\rocketleague"'
 };

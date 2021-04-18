@@ -3,4 +3,5 @@ exports.config = {
 	renderer_path: "./src/renderer", 
 	public_path: "./src/renderer/public/",
 	preload_path: "./src/",
+	save_path: "./",
 }

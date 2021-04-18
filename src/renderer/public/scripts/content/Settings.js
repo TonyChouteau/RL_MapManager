@@ -1,4 +1,3 @@
-
 function Settings(props) {
 	// Define the makeStyles function
 	function makeStyles(css) {
@@ -8,7 +7,9 @@ function Settings(props) {
 		};
 
 		var rowContent = {
-			margin: '10px'
+			margin: '10px',
+			overflow: "hidden",
+			textOverflow: "ellipsis"
 		};
 
 		var row1 = {
@@ -16,7 +17,8 @@ function Settings(props) {
 		};
 
 		var row2 = {
-			font: css.font.content
+			font: css.font.content,
+			color: css.colors.text2
 		};
 
 		return { contentStyle: contentStyle, rowContent: rowContent, row1: row1, row2: row2 };
@@ -42,8 +44,7 @@ function Settings(props) {
 				'div',
 				{ style: rowContent },
 				'Rocket League Folder :'
-			),
-			React.createElement('div', null)
+			)
 		),
 		React.createElement(
 			Row,
@@ -51,11 +52,11 @@ function Settings(props) {
 			React.createElement(
 				'div',
 				{ style: rowContent },
-				props.gameFolder
+				props.gameFolder || config.gamePathDefault
 			),
 			React.createElement(
 				Button,
-				{ style: rowContent },
+				{ onClick: props.onGameFolderEdit, style: rowContent },
 				React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
 			)
 		),
@@ -65,7 +66,7 @@ function Settings(props) {
 			React.createElement(
 				'div',
 				{ style: rowContent },
-				'Custom Map Folder :'
+				'Custom Maps Folder :'
 			)
 		),
 		React.createElement(
@@ -78,7 +79,7 @@ function Settings(props) {
 			),
 			React.createElement(
 				Button,
-				{ style: rowContent },
+				{ onClick: props.onAppFolderEdit, style: rowContent },
 				React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
 			)
 		)

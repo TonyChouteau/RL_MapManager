@@ -1,4 +1,3 @@
-
 function Settings(props) {
 	// Define the makeStyles function
 	function makeStyles(css) {
@@ -9,6 +8,8 @@ function Settings(props) {
 
 		let rowContent = {
 			margin: '10px',
+			overflow: "hidden",
+			textOverflow: "ellipsis",
 		};
 
 		let row1 = {
@@ -17,6 +18,7 @@ function Settings(props) {
 
 		let row2 = {
 			font: css.font.content,
+			color: css.colors.text2,
 		};
 
 		return { contentStyle, rowContent, row1, row2 };
@@ -29,22 +31,19 @@ function Settings(props) {
 		<div style={contentStyle}>
 			<Row even style={row1}>
 				<div style={rowContent}>Rocket League Folder :</div>
-				<div>
-
-				</div>
 			</Row>
 			<Row style={row2}>
-				<div style={rowContent}>{props.gameFolder}</div>
-				<Button style={rowContent}>
+				<div style={rowContent}>{props.gameFolder || config.gamePathDefault}</div>
+				<Button onClick={props.onGameFolderEdit} style={rowContent}>
 					<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
 				</Button>
 			</Row>
 			<Row even style={row1}>
-				<div style={rowContent}>Custom Map Folder :</div>
+				<div style={rowContent}>Custom Maps Folder :</div>
 			</Row>
 			<Row style={row2}>
 				<div style={rowContent}>{props.appFolder}</div>
-				<Button style={rowContent}>
+				<Button onClick={props.onAppFolderEdit} style={rowContent}>
 					<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
 				</Button>
 			</Row>

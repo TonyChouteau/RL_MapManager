@@ -26,22 +26,29 @@ function App(props) {
 
 	// Define React state
 	const [state, setState] = React.useState(config.states.LIST);
-	const [appFolder, setAppFolder] = React.useState('Not Defined');
-	const [gameFolder, setGameFolder] = React.useState('Not Defined');
-	handler.getPath((path) => {
-		setAppFolder(path);
-	});
-
 	function handleStateChange(state) {
 		setState(state);
 	}
+
+	const [appFolder, setAppFolder] = React.useState("Not defined");
+	const [gameFolder, setGameFolder] = React.useState(null);
+	handler.getAppPath((path) => {
+		if (path !== appFolder) {
+			setAppFolder(path);
+		}
+	});
+	handler.getGamePath((path) => {
+		if (path !== gameFolder) {
+			setGameFolder(path);
+		}
+	});
 
 	// Renderer
 	return (
 		<div style={styleContainer}>
 			<div style={styleContainer2}>
 				<Header state={state} size={config.css.iconSize} handleStateChange={handleStateChange} />
-				<Content state={state} appFolder={appFolder} gameFolder={gameFolder}/>
+				<Content state={state} appFolder={appFolder} gameFolder={gameFolder} onAppFolderEdit={handler.editAppFolder} onGameFolderEdit={handler.editGameFolder}/>
 			</div>
 		</div>
 	);

@@ -37,23 +37,30 @@ function App(props) {
 	    state = _React$useState2[0],
 	    setState = _React$useState2[1];
 
-	var _React$useState3 = React.useState('Not Defined'),
+	function handleStateChange(state) {
+		setState(state);
+	}
+
+	var _React$useState3 = React.useState("Not defined"),
 	    _React$useState4 = _slicedToArray(_React$useState3, 2),
 	    appFolder = _React$useState4[0],
 	    setAppFolder = _React$useState4[1];
 
-	var _React$useState5 = React.useState('Not Defined'),
+	var _React$useState5 = React.useState(null),
 	    _React$useState6 = _slicedToArray(_React$useState5, 2),
 	    gameFolder = _React$useState6[0],
 	    setGameFolder = _React$useState6[1];
 
-	handler.getPath(function (path) {
-		setAppFolder(path);
+	handler.getAppPath(function (path) {
+		if (path !== appFolder) {
+			setAppFolder(path);
+		}
 	});
-
-	function handleStateChange(state) {
-		setState(state);
-	}
+	handler.getGamePath(function (path) {
+		if (path !== gameFolder) {
+			setGameFolder(path);
+		}
+	});
 
 	// Renderer
 	return React.createElement(
@@ -63,7 +70,7 @@ function App(props) {
 			'div',
 			{ style: styleContainer2 },
 			React.createElement(Header, { state: state, size: config.css.iconSize, handleStateChange: handleStateChange }),
-			React.createElement(Content, { state: state, appFolder: appFolder, gameFolder: gameFolder })
+			React.createElement(Content, { state: state, appFolder: appFolder, gameFolder: gameFolder, onAppFolderEdit: handler.editAppFolder, onGameFolderEdit: handler.editGameFolder })
 		)
 	);
 }

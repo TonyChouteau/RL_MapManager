@@ -33,7 +33,7 @@ function Content(props) {
 				);
 				break;
 			case config.states.SETTINGS:
-				return React.createElement(Settings, { appFolder: props.appFolder, gameFolder: props.gameFolder });
+				return React.createElement(Settings, { appFolder: props.appFolder, gameFolder: props.gameFolder, onAppFolderEdit: props.onAppFolderEdit, onGameFolderEdit: props.onGameFolderEdit });
 				break;
 		}
 	}

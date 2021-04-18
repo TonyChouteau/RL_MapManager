@@ -30,10 +30,6 @@
 	<!-- React Api Load -->
 	<script>
 		let handler = new Handler();
-		window.api.receive('ready', (appName) => {
-			document.title = appName;
-			handler.addIpcListener();
-		});
 	</script>
 
 	<!-- React Components -->
