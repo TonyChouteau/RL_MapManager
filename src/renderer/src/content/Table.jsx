@@ -3,8 +3,8 @@ function Table(props) {
 		<div>
 			<div>Count : {props.list.length}</div>
 			<div>
-				{props.list.map((map) => {
-					return <div>{map.name}</div>;
+				{props.list.map((map, id) => {
+					return <div key={id}>{map}</div>;
 				})}
 			</div>
 		</div>

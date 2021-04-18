@@ -30,6 +30,12 @@ Handler.prototype = {
 				_this.importPathHandler(path);
 			}
 		});
+		window.api.receive('list', function (list) {
+			_this.list = list;
+			if (_this.listHandler) {
+				_this.listHandler(list);
+			}
+		});
 		window.api.send('get-path');
 		window.api.send('get-list');
 	},
@@ -55,6 +61,12 @@ Handler.prototype = {
 			return handler(this.importPath);
 		}
 	},
+	getList: function getList(handler) {
+		this.listHandler = handler;
+		if (this.list) {
+			return handler(this.list);
+		}
+	},
 
 	// Edit Path Handler
 	editAppFolder: function editAppFolder() {
@@ -71,15 +83,15 @@ Handler.prototype = {
 	},
 
 	editImportFile: function editImportFile(path) {
-		window.api.send('import', {
+		window.api.send('edit-import', {
 			title: 'Select the new map to import (.zip, .udk, .upk)',
 			defaultPath: path
 		});
 	},
-	importMap: function importMap(path) {
-		window.api.send('import', {
-			title: 'Select the new map to import (.zip, .udk, .upk)',
-			defaultPath: path
+	importMap: function importMap(data) {
+		window.api.send('add-map', {
+			path: data.path,
+			name: data.name
 		});
 	}
 };

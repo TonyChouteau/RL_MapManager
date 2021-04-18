@@ -68,9 +68,12 @@ function App(props) {
 	    list = _React$useState8[0],
 	    setList = _React$useState8[1];
 
+	handler.getList(function (newList) {
+		if (newList.length !== list.length) {
+			setList(newList);
+		}
+	});
 	// Renderer
-
-
 	return React.createElement(
 		'div',
 		{ style: styleContainer },

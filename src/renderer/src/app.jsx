@@ -44,7 +44,11 @@ function App(props) {
 	});
 
 	const [list, setList] = React.useState([]);
-
+	handler.getList((newList) => {
+		if (newList.length !== list.length) {
+			setList(newList);
+		}
+	});
 	// Renderer
 	return (
 		<div style={styleContainer}>

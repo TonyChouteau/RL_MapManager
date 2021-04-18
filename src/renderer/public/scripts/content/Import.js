@@ -23,6 +23,15 @@ function Import(props) {
 		}
 	});
 
+	var _React$useState5 = React.useState('NewMap' + props.count),
+	    _React$useState6 = _slicedToArray(_React$useState5, 2),
+	    name = _React$useState6[0],
+	    setName = _React$useState6[1];
+
+	function handleChange(event) {
+		setName(event.target.value);
+	}
+
 	// Define the makeStyles function
 	function makeStyles(css) {
 		var importStyle = {
@@ -92,7 +101,7 @@ function Import(props) {
 				React.createElement(
 					'div',
 					{ style: rowContent },
-					'New Map File (.zip, .udk, .upk) :'
+					'New Map File (.zip, .rar, .udk, .upk) :'
 				)
 			),
 			React.createElement(
@@ -125,8 +134,8 @@ function Import(props) {
 			),
 			React.createElement(
 				Row,
-				{ style: row2 },
-				React.createElement('input', { style: inputStyle, type: 'text', defaultValue: 'NewMap' + props.count })
+				{ id: 'import_map_name', style: row2 },
+				React.createElement('input', { style: inputStyle, type: 'text', value: name, onChange: handleChange })
 			)
 		),
 		React.createElement(
@@ -139,7 +148,7 @@ function Import(props) {
 					style: addButtonStyle,
 					disabled: disabled,
 					onClick: function onClick() {
-						isValid(importPath) && handler.importMap(importPath);
+						isValid(importPath) && handler.importMap({ path: importPath, name: name });
 					}
 				},
 				React.createElement(Icon, {

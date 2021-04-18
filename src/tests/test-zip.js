@@ -9,7 +9,6 @@ fs.readdir(path, function (err, files) {
 	}
 	files.filter(file => file.includes("zip")).forEach(function (file) {
 		console.log(file);
-		let name = file.replace(".zip$", "").replace(".rar$", "");
 		let zip = new Zip(path + file);
 		zip.getEntries().forEach(function(entry) {
 			let fileName = entry.entryName ;

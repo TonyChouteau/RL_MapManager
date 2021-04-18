@@ -13,6 +13,11 @@ function Import(props) {
 		}
 	});
 
+	const [name, setName] = React.useState('NewMap' + props.count);
+	function handleChange(event) {
+	  setName(event.target.value);
+	}
+
 	// Define the makeStyles function
 	function makeStyles(css) {
 		let importStyle = {
@@ -72,7 +77,7 @@ function Import(props) {
 		<div>
 			<div style={importStyle}>
 				<Row even style={row1}>
-					<div style={rowContent}>New Map File (.zip, .udk, .upk) :</div>
+					<div style={rowContent}>New Map File (.zip, .rar, .udk, .upk) :</div>
 				</Row>
 				<Row style={row2}>
 					<div style={rowContent}>{importPath || '-'}</div>
@@ -88,8 +93,8 @@ function Import(props) {
 				<Row even style={row1}>
 					<div style={rowContent}>Map Name:</div>
 				</Row>
-				<Row style={row2}>
-					<input style={inputStyle} type="text" defaultValue={'NewMap' + props.count} />
+				<Row id="import_map_name" style={row2}>
+					<input style={inputStyle} type="text" value={name} onChange={handleChange} />
 				</Row>
 			</div>
 			<div style={importButtonContainer}>
@@ -98,7 +103,7 @@ function Import(props) {
 					style={addButtonStyle}
 					disabled={disabled}
 					onClick={() => {
-						isValid(importPath) && handler.importMap(importPath);
+						isValid(importPath) && handler.importMap({path: importPath, name: name});
 					}}
 				>
 					<Icon

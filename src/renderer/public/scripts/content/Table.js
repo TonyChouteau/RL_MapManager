@@ -11,11 +11,11 @@ function Table(props) {
 		React.createElement(
 			"div",
 			null,
-			props.list.map(function (map) {
+			props.list.map(function (map, id) {
 				return React.createElement(
 					"div",
-					null,
-					map.name
+					{ key: id },
+					map
 				);
 			})
 		)
