@@ -39,6 +39,16 @@ function Import(props) {
 		};
 		var rowContent = css.rowContent;
 
+		var inputStyle = {
+			height: '94%',
+			width: '100%',
+			background: css.colors.line2,
+			border: 'none',
+			color: css.colors.text1,
+			margin: '10px',
+			outline: 'none'
+		};
+
 		var importButtonContainer = {
 			width: '100%'
 		};
@@ -53,7 +63,7 @@ function Import(props) {
 			marginRight: '10px'
 		};
 
-		return { importStyle: importStyle, rowContent: rowContent, row1: row1, row2: row2, importButtonContainer: importButtonContainer, addButtonStyle: addButtonStyle, iconStyle: iconStyle };
+		return { importStyle: importStyle, rowContent: rowContent, row1: row1, row2: row2, inputStyle: inputStyle, importButtonContainer: importButtonContainer, addButtonStyle: addButtonStyle, iconStyle: iconStyle };
 	}
 	// Make css
 
@@ -62,6 +72,7 @@ function Import(props) {
 	    rowContent = _makeStyles.rowContent,
 	    row1 = _makeStyles.row1,
 	    row2 = _makeStyles.row2,
+	    inputStyle = _makeStyles.inputStyle,
 	    importButtonContainer = _makeStyles.importButtonContainer,
 	    addButtonStyle = _makeStyles.addButtonStyle,
 	    iconStyle = _makeStyles.iconStyle;
@@ -102,6 +113,20 @@ function Import(props) {
 					},
 					React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
 				)
+			),
+			React.createElement(
+				Row,
+				{ even: true, style: row1 },
+				React.createElement(
+					'div',
+					{ style: rowContent },
+					'Map Name:'
+				)
+			),
+			React.createElement(
+				Row,
+				{ style: row2 },
+				React.createElement('input', { style: inputStyle, type: 'text', defaultValue: 'NewMap' + props.count })
 			)
 		),
 		React.createElement(
@@ -117,7 +142,12 @@ function Import(props) {
 						isValid(importPath) && handler.importMap(importPath);
 					}
 				},
-				React.createElement(Icon, { style: iconStyle, icon: config.icons.ADD, color: config.css.colors.icon, size: config.css.iconSize }),
+				React.createElement(Icon, {
+					style: iconStyle,
+					icon: config.icons.ADD,
+					color: config.css.colors.icon,
+					size: config.css.iconSize
+				}),
 				React.createElement(
 					'div',
 					null,

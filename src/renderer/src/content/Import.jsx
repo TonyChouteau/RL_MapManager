@@ -25,11 +25,19 @@ function Import(props) {
 
 		let row2 = {
 			font: css.font.content,
-			color: isValid(importPath)
-				? css.colors.textSuccess
-				: css.colors.textError,
+			color: isValid(importPath) ? css.colors.textSuccess : css.colors.textError,
 		};
 		let rowContent = css.rowContent;
+
+		let inputStyle = {
+			height: '94%',
+			width: '100%',
+			background: css.colors.line2,
+			border: 'none',
+			color: css.colors.text1,
+			margin: '10px',
+			outline: 'none',
+		};
 
 		let importButtonContainer = {
 			width: '100%',
@@ -45,10 +53,19 @@ function Import(props) {
 			marginRight: '10px',
 		};
 
-		return { importStyle, rowContent, row1, row2, importButtonContainer, addButtonStyle, iconStyle };
+		return { importStyle, rowContent, row1, row2, inputStyle, importButtonContainer, addButtonStyle, iconStyle };
 	}
 	// Make css
-	let { importStyle, rowContent, row1, row2, importButtonContainer, addButtonStyle, iconStyle } = makeStyles(config.css);
+	let {
+		importStyle,
+		rowContent,
+		row1,
+		row2,
+		inputStyle,
+		importButtonContainer,
+		addButtonStyle,
+		iconStyle,
+	} = makeStyles(config.css);
 
 	//Renderer
 	return (
@@ -68,6 +85,12 @@ function Import(props) {
 						<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
 					</Button>
 				</Row>
+				<Row even style={row1}>
+					<div style={rowContent}>Map Name:</div>
+				</Row>
+				<Row style={row2}>
+					<input style={inputStyle} type="text" defaultValue={'NewMap' + props.count} />
+				</Row>
 			</div>
 			<div style={importButtonContainer}>
 				<Button
@@ -78,7 +101,12 @@ function Import(props) {
 						isValid(importPath) && handler.importMap(importPath);
 					}}
 				>
-					<Icon style={iconStyle} icon={config.icons.ADD} color={config.css.colors.icon} size={config.css.iconSize} />
+					<Icon
+						style={iconStyle}
+						icon={config.icons.ADD}
+						color={config.css.colors.icon}
+						size={config.css.iconSize}
+					/>
 					<div>ADD THE MAP</div>
 				</Button>
 			</div>

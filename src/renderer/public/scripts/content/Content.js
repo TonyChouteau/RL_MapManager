@@ -19,14 +19,10 @@ function Content(props) {
 	function MakeContent() {
 		switch (props.state) {
 			case config.states.LIST:
-				return React.createElement(
-					'div',
-					null,
-					'Table'
-				);
+				return React.createElement(Table, { list: props.list });
 
 			case config.states.IMPORT:
-				return React.createElement(Import, null);
+				return React.createElement(Import, { count: props.list.length });
 
 			case config.states.SETTINGS:
 				return React.createElement(Settings, {

@@ -15,10 +15,10 @@ function Content(props) {
 	function MakeContent() {
 		switch (props.state) {
 			case config.states.LIST:
-				return <div>Table</div>;
+				return <Table list={props.list}></Table>;
 
 			case config.states.IMPORT:
-				return <Import/>;
+				return <Import count={props.list.length}/>;
 
 			case config.states.SETTINGS:
 				return (

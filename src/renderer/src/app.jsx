@@ -43,6 +43,8 @@ function App(props) {
 		}
 	});
 
+	const [list, setList] = React.useState([]);
+
 	// Renderer
 	return (
 		<div style={styleContainer}>
@@ -50,6 +52,7 @@ function App(props) {
 				<Header state={state} size={config.css.iconSize} handleStateChange={handleStateChange} />
 				<Content
 					state={state}
+					list={list}
 					// Settings
 					appFolder={appFolder}
 					gameFolder={gameFolder}

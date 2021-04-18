@@ -31,6 +31,7 @@ Handler.prototype = {
 			}
 		});
 		window.api.send('get-path');
+		window.api.send('get-list');
 	},
 
 	// Asynchronous Getters
@@ -76,6 +77,9 @@ Handler.prototype = {
 		});
 	},
 	importMap: function importMap(path) {
-		console.log(path);
+		window.api.send('import', {
+			title: 'Select the new map to import (.zip, .udk, .upk)',
+			defaultPath: path
+		});
 	}
 };

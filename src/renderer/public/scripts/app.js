@@ -63,7 +63,14 @@ function App(props) {
 		}
 	});
 
+	var _React$useState7 = React.useState([]),
+	    _React$useState8 = _slicedToArray(_React$useState7, 2),
+	    list = _React$useState8[0],
+	    setList = _React$useState8[1];
+
 	// Renderer
+
+
 	return React.createElement(
 		'div',
 		{ style: styleContainer },
@@ -72,7 +79,8 @@ function App(props) {
 			{ style: styleContainer2 },
 			React.createElement(Header, { state: state, size: config.css.iconSize, handleStateChange: handleStateChange }),
 			React.createElement(Content, {
-				state: state
+				state: state,
+				list: list
 				// Settings
 				, appFolder: appFolder,
 				gameFolder: gameFolder
