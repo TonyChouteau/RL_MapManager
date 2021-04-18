@@ -4,8 +4,8 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 
 // Own Modules
-const { config } = require('./src/config');
-const FileManager = require("./src/engine/FileManager");
+const { config } = require('../config');
+const FileManager = require("./FileManager");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
