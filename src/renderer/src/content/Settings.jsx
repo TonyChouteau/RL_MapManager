@@ -1,3 +1,4 @@
+
 function Settings(props) {
 	// Define the makeStyles function
 	function makeStyles(css) {
@@ -34,12 +35,18 @@ function Settings(props) {
 			</Row>
 			<Row style={row2}>
 				<div style={rowContent}>{props.gameFolder}</div>
+				<Button style={rowContent}>
+					<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
+				</Button>
 			</Row>
 			<Row even style={row1}>
 				<div style={rowContent}>Custom Map Folder :</div>
 			</Row>
 			<Row style={row2}>
-				<div style={rowContent}>Rocket League Folder :</div>
+				<div style={rowContent}>{props.appFolder}</div>
+				<Button style={rowContent}>
+					<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
+				</Button>
 			</Row>
 		</div>
 	);

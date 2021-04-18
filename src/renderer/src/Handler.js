@@ -5,13 +5,20 @@ let Handler = function () {
 Handler.prototype = {
 	addIpcListener: function() {
 		window.api.receive('app-path', (path) => {
-			console.log(path);
-			this.path = path || "Not Defined";
+			this.path = path;
+			if (this.pathHandler) {
+				this.pathHandler(path);
+				this.pathHandler = null;
+			}
 		});
 		window.api.send('get-app-path', "data");
 	},
 
-	getPath: function() {
-		return this.path || "Not Defined";
+	getPath: function(handler) {
+		if (this.path) {
+			return this.path;
+		} else {
+			this.pathHandler = handler;
+		}
 	},
 };

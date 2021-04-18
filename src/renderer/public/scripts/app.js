@@ -37,10 +37,19 @@ function App(props) {
 	    state = _React$useState2[0],
 	    setState = _React$useState2[1];
 
-	var _React$useState3 = React.useState("D:\\Program\\rocketleague"),
+	var _React$useState3 = React.useState('Not Defined'),
 	    _React$useState4 = _slicedToArray(_React$useState3, 2),
-	    gameFolder = _React$useState4[0],
-	    setGameFolder = _React$useState4[1];
+	    appFolder = _React$useState4[0],
+	    setAppFolder = _React$useState4[1];
+
+	var _React$useState5 = React.useState('Not Defined'),
+	    _React$useState6 = _slicedToArray(_React$useState5, 2),
+	    gameFolder = _React$useState6[0],
+	    setGameFolder = _React$useState6[1];
+
+	handler.getPath(function (path) {
+		setAppFolder(path);
+	});
 
 	function handleStateChange(state) {
 		setState(state);
@@ -54,7 +63,7 @@ function App(props) {
 			'div',
 			{ style: styleContainer2 },
 			React.createElement(Header, { state: state, size: config.css.iconSize, handleStateChange: handleStateChange }),
-			React.createElement(Content, { state: state, gameFolder: gameFolder })
+			React.createElement(Content, { state: state, appFolder: appFolder, gameFolder: gameFolder })
 		)
 	);
 }

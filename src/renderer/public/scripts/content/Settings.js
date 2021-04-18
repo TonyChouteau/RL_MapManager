@@ -1,3 +1,4 @@
+
 function Settings(props) {
 	// Define the makeStyles function
 	function makeStyles(css) {
@@ -51,6 +52,11 @@ function Settings(props) {
 				'div',
 				{ style: rowContent },
 				props.gameFolder
+			),
+			React.createElement(
+				Button,
+				{ style: rowContent },
+				React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
 			)
 		),
 		React.createElement(
@@ -68,7 +74,12 @@ function Settings(props) {
 			React.createElement(
 				'div',
 				{ style: rowContent },
-				'Rocket League Folder :'
+				props.appFolder
+			),
+			React.createElement(
+				Button,
+				{ style: rowContent },
+				React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
 			)
 		)
 	);

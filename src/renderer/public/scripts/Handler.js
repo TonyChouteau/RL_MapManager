@@ -7,13 +7,20 @@ Handler.prototype = {
 		var _this = this;
 
 		window.api.receive('app-path', function (path) {
-			console.log(path);
-			_this.path = path || "Not Defined";
+			_this.path = path;
+			if (_this.pathHandler) {
+				_this.pathHandler(path);
+				_this.pathHandler = null;
+			}
 		});
 		window.api.send('get-app-path', "data");
 	},
 
-	getPath: function getPath() {
-		return this.path || "Not Defined";
+	getPath: function getPath(handler) {
+		if (this.path) {
+			return this.path;
+		} else {
+			this.pathHandler = handler;
+		}
 	}
 };

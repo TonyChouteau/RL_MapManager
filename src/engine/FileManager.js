@@ -11,7 +11,8 @@ let FileManager = function (win, app) {
 	// Main event listener
 	this.addIpcListener = function () {
 		ipcMain.on('get-app-path', (event, arg) => {
-			this.win.webContents.send('app-path', this.app.getAppPath());
+			let app_path = isDev ? this.app.getAppPath() : path.join(this.app.getAppPath(), "../../");
+			this.win.webContents.send('app-path', app_path);
 		});
 	};
 

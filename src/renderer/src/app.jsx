@@ -26,7 +26,11 @@ function App(props) {
 
 	// Define React state
 	const [state, setState] = React.useState(config.states.LIST);
-	const [gameFolder, setGameFolder] = React.useState("D:\\Program\\rocketleague");
+	const [appFolder, setAppFolder] = React.useState('Not Defined');
+	const [gameFolder, setGameFolder] = React.useState('Not Defined');
+	handler.getPath((path) => {
+		setAppFolder(path);
+	});
 
 	function handleStateChange(state) {
 		setState(state);
@@ -37,7 +41,7 @@ function App(props) {
 		<div style={styleContainer}>
 			<div style={styleContainer2}>
 				<Header state={state} size={config.css.iconSize} handleStateChange={handleStateChange} />
-				<Content state={state} gameFolder={gameFolder}/>
+				<Content state={state} appFolder={appFolder} gameFolder={gameFolder}/>
 			</div>
 		</div>
 	);
