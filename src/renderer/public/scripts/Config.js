@@ -4,9 +4,12 @@ var config = {
 		IMPORT: 1,
 		SETTINGS: 2
 	},
-	statesName: ["", "IMPORT A MAP", "SETTINGS"],
+	statesName: ["SELECT", "IMPORT", "SETTINGS"],
 	TOTAL_STATES: 3,
 	css: {
+		font: {
+			title: "bold 25px Consolas"
+		},
 		colors: {
 			text1: "#FFF",
 			text2: "#999999",
@@ -20,9 +23,32 @@ var config = {
 		},
 		flexColumn: {
 			display: "flex",
-			flexDirection: "column",
+			flexDirection: "column"
+		},
+		flexRow: {
+			display: "flex",
+			flexDirection: "row"
+		},
+		flexCenter: {
 			justifyContent: "center",
 			alignItems: "center"
-		}
+		},
+		flexLeft: {
+			justifyContent: "start",
+			alignItems: "center"
+		},
+		flexSpace: {
+			justifyContent: "space-between",
+			alignItems: "center"
+		},
+		headerHeight: "75px",
+		iconSize: "25"
+	},
+	svg_path: "./images/icons/",
+	icons: {
+		ARROW: "arrow_icon.svg",
+		EDIT: "edit_icon.svg",
+		SETTINGS: "settings_icon.svg",
+		ADD: "add_icon.svg"
 	}
 };

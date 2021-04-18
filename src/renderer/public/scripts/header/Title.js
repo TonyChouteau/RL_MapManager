@@ -1,16 +1,17 @@
 function Title(props) {
 	// Define the makeStyles function
-	this.makeStyles = function (css) {
+	function makeStyles(css) {
 		var titleStyles = {
-			width: "unset",
-			font: "bold 25px Consolas"
+			width: 'unset',
+			font: css.font.title,
+			margin: '0'
 		};
-		Object.assign(titleStyles, config.css.flexColumn);
+		Object.assign(titleStyles, css.flexColumn, css.flexCenter);
 
 		return {
 			titleStyles: titleStyles
 		};
-	};
+	}
 	// Make css
 
 	var _makeStyles = makeStyles(config.css),
@@ -20,7 +21,7 @@ function Title(props) {
 
 
 	return React.createElement(
-		"h1",
+		'h1',
 		{ style: titleStyles },
 		props.children
 	);
