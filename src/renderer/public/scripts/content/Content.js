@@ -26,11 +26,7 @@ function Content(props) {
 				);
 				break;
 			case config.states.IMPORT:
-				return React.createElement(
-					'div',
-					null,
-					'Import'
-				);
+				return React.createElement(Import, { appFolder: props.appFolder });
 				break;
 			case config.states.SETTINGS:
 				return React.createElement(Settings, { appFolder: props.appFolder, gameFolder: props.gameFolder, onAppFolderEdit: props.onAppFolderEdit, onGameFolderEdit: props.onGameFolderEdit });

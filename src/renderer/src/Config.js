@@ -47,6 +47,12 @@ let config = {
 		headerHeight: '75px',
 		iconSize: '25',
 		lineHeight: '60px',
+		rowContent: {
+			margin: '10px',
+			overflow: "hidden",
+			textOverflow: "ellipsis",
+			whiteSpace: "nowrap",
+		},
 	},
 	svg_path: './images/icons/',
 	icons: {

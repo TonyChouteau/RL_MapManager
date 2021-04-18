@@ -18,7 +18,7 @@ function Content(props) {
 				return <div>Table</div>;
 				break;
 			case config.states.IMPORT:
-				return <div>Import</div>;
+				return <Import appFolder={props.appFolder}/>;
 				break;
 			case config.states.SETTINGS:
 				return <Settings appFolder={props.appFolder} gameFolder={props.gameFolder} onAppFolderEdit={props.onAppFolderEdit} onGameFolderEdit={props.onGameFolderEdit} />;

@@ -55,5 +55,12 @@ Handler.prototype = {
 			type: 'game',
 			title: config.gamePathDefault
 		});
+	},
+
+	importMap: function importMap() {
+		window.api.send('edit-folder', {
+			type: 'game',
+			title: config.gamePathDefault
+		});
 	}
 };

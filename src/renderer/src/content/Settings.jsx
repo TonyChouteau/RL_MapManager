@@ -5,12 +5,8 @@ function Settings(props) {
 			background: css.colors.background2,
 			width: '100%',
 		};
-
-		let rowContent = {
-			margin: '10px',
-			overflow: "hidden",
-			textOverflow: "ellipsis",
-		};
+		
+		let rowContent = css.rowContent;
 
 		let row1 = {
 			font: css.font.subTitle,
