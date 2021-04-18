@@ -9,16 +9,14 @@ function Button(props) {
 			background: props.background || 'transparent',
 			transition: 'all 0.2s 0s',
 			cursor: 'pointer',
+			minWidth: '25px',
 		};
 		Object.assign(buttonStyle, props.style);
 
-		if (hover) {
-			Object.assign(
-				buttonStyle,
-				props.hoverStyle || {
-					filter: 'brightness(75%)',
-				}
-			);
+		if (props.disabled) {
+			Object.assign(buttonStyle, props.disabledStyle || { filter: 'brightness(90%)' });
+		} else if (hover) {
+			Object.assign(buttonStyle, props.hoverStyle || { filter: 'brightness(75%)' });
 		}
 
 		return { buttonStyle };

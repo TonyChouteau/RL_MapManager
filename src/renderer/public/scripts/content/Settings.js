@@ -52,7 +52,7 @@ function Settings(props) {
 			),
 			React.createElement(
 				Button,
-				{ onClick: props.onGameFolderEdit, style: rowContent },
+				{ onClick: handler.editGameFolder, style: rowContent },
 				React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
 			)
 		),
@@ -75,7 +75,7 @@ function Settings(props) {
 			),
 			React.createElement(
 				Button,
-				{ onClick: props.onAppFolderEdit, style: rowContent },
+				{ onClick: handler.editAppFolder, style: rowContent },
 				React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
 			)
 		)

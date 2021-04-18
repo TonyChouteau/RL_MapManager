@@ -1,8 +1,14 @@
 function Import(props) {
 	// Set states
-	const [importPath, setImportPath] = React.useState("");
+	let [disabled, setDisabled] = React.useState(true);
+	function isValid(path) {
+		return config.allowedExtensions.includes(path.split('.').slice(-1)[0]);
+	}
+
+	const [importPath, setImportPath] = React.useState('');
 	handler.getImportPath((path) => {
 		if (path !== importPath) {
+			setDisabled(!isValid(path));
 			setImportPath(path);
 		}
 	});
@@ -19,29 +25,63 @@ function Import(props) {
 
 		let row2 = {
 			font: css.font.content,
-			color: config.allowedExtensions.includes(importPath.split('.').slice(-1)[0])
+			color: isValid(importPath)
 				? css.colors.textSuccess
 				: css.colors.textError,
 		};
 		let rowContent = css.rowContent;
 
-		return { importStyle, rowContent, row1, row2 };
+		let importButtonContainer = {
+			width: '100%',
+		};
+		Object.assign(importButtonContainer, css.flexRow, css.flexCenter);
+
+		let addButtonStyle = {
+			marginTop: '20px',
+		};
+		Object.assign(addButtonStyle, css.flexRow, css.flexCenter);
+
+		let iconStyle = {
+			marginRight: '10px',
+		};
+
+		return { importStyle, rowContent, row1, row2, importButtonContainer, addButtonStyle, iconStyle };
 	}
 	// Make css
-	let { importStyle, rowContent, row1, row2 } = makeStyles(config.css);
+	let { importStyle, rowContent, row1, row2, importButtonContainer, addButtonStyle, iconStyle } = makeStyles(config.css);
 
 	//Renderer
 	return (
-		<div style={importStyle}>
-			<Row even style={row1}>
-				<div style={rowContent}>New Map File (.zip, .udk, .upk) :</div>
-			</Row>
-			<Row style={row2}>
-				<div style={rowContent}>{importPath || '-'}</div>
-				<Button onClick={() => {props.onMapImport(importPath)}} style={rowContent}>
-					<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
+		<div>
+			<div style={importStyle}>
+				<Row even style={row1}>
+					<div style={rowContent}>New Map File (.zip, .udk, .upk) :</div>
+				</Row>
+				<Row style={row2}>
+					<div style={rowContent}>{importPath || '-'}</div>
+					<Button
+						onClick={() => {
+							handler.editImportFile(importPath);
+						}}
+						style={rowContent}
+					>
+						<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
+					</Button>
+				</Row>
+			</div>
+			<div style={importButtonContainer}>
+				<Button
+					background={config.css.colors.button}
+					style={addButtonStyle}
+					disabled={disabled}
+					onClick={() => {
+						isValid(importPath) && handler.importMap(importPath);
+					}}
+				>
+					<Icon style={iconStyle} icon={config.icons.ADD} color={config.css.colors.icon} size={config.css.iconSize} />
+					<div>ADD THE MAP</div>
 				</Button>
-			</Row>
+			</div>
 		</div>
 	);
 }

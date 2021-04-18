@@ -26,14 +26,12 @@ function Content(props) {
 				);
 
 			case config.states.IMPORT:
-				return React.createElement(Import, { onMapImport: props.onMapImport });
+				return React.createElement(Import, null);
 
 			case config.states.SETTINGS:
 				return React.createElement(Settings, {
 					appFolder: props.appFolder,
-					gameFolder: props.gameFolder,
-					onAppFolderEdit: props.onAppFolderEdit,
-					onGameFolderEdit: props.onGameFolderEdit
+					gameFolder: props.gameFolder
 				});
 		}
 	}

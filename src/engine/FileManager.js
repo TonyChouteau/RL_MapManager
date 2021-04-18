@@ -62,7 +62,7 @@ let FileManager = function (win, app) {
 				})
 				.then((rep) => {
 					if (!rep.canceled) {
-						const newPath = rep.filePaths[0]; //.replaceAll("\\", "\\\\");
+						const newPath = rep.filePaths[0];
 						this.saveData(data.type, newPath);
 						if (data.type === 'app') {
 							this.currentAppPath = newPath;

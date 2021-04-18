@@ -75,11 +75,7 @@ function App(props) {
 				state: state
 				// Settings
 				, appFolder: appFolder,
-				gameFolder: gameFolder,
-				onAppFolderEdit: handler.editAppFolder,
-				onGameFolderEdit: handler.editGameFolder
-				// Import
-				, onMapImport: handler.importMap
+				gameFolder: gameFolder
 			})
 		)
 	);

@@ -15,14 +15,15 @@ function Button(props) {
 			padding: '5px 7.5px 5px 7.5px',
 			background: props.background || 'transparent',
 			transition: 'all 0.2s 0s',
-			cursor: 'pointer'
+			cursor: 'pointer',
+			minWidth: '25px'
 		};
 		Object.assign(buttonStyle, props.style);
 
-		if (hover) {
-			Object.assign(buttonStyle, props.hoverStyle || {
-				filter: 'brightness(75%)'
-			});
+		if (props.disabled) {
+			Object.assign(buttonStyle, props.disabledStyle || { filter: 'brightness(90%)' });
+		} else if (hover) {
+			Object.assign(buttonStyle, props.hoverStyle || { filter: 'brightness(75%)' });
 		}
 
 		return { buttonStyle: buttonStyle };

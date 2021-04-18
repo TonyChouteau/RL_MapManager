@@ -69,10 +69,13 @@ Handler.prototype = {
 		});
 	},
 
-	importMap: function importMap(path) {
+	editImportFile: function editImportFile(path) {
 		window.api.send('import', {
 			title: 'Select the new map to import (.zip, .udk, .upk)',
 			defaultPath: path
 		});
+	},
+	importMap: function importMap(path) {
+		console.log(path);
 	}
 };

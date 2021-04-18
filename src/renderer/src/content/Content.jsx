@@ -18,15 +18,13 @@ function Content(props) {
 				return <div>Table</div>;
 
 			case config.states.IMPORT:
-				return <Import onMapImport={props.onMapImport} />;
+				return <Import/>;
 
 			case config.states.SETTINGS:
 				return (
 					<Settings
 						appFolder={props.appFolder}
 						gameFolder={props.gameFolder}
-						onAppFolderEdit={props.onAppFolderEdit}
-						onGameFolderEdit={props.onGameFolderEdit}
 					/>
 				);
 		}

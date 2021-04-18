@@ -53,10 +53,6 @@ function App(props) {
 					// Settings
 					appFolder={appFolder}
 					gameFolder={gameFolder}
-					onAppFolderEdit={handler.editAppFolder}
-					onGameFolderEdit={handler.editGameFolder}
-					// Import
-					onMapImport={handler.importMap}
 				/>
 			</div>
 		</div>

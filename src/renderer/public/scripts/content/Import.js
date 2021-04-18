@@ -2,13 +2,23 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 function Import(props) {
 	// Set states
-	var _React$useState = React.useState(""),
+	var _React$useState = React.useState(true),
 	    _React$useState2 = _slicedToArray(_React$useState, 2),
-	    importPath = _React$useState2[0],
-	    setImportPath = _React$useState2[1];
+	    disabled = _React$useState2[0],
+	    setDisabled = _React$useState2[1];
+
+	function isValid(path) {
+		return config.allowedExtensions.includes(path.split('.').slice(-1)[0]);
+	}
+
+	var _React$useState3 = React.useState(''),
+	    _React$useState4 = _slicedToArray(_React$useState3, 2),
+	    importPath = _React$useState4[0],
+	    setImportPath = _React$useState4[1];
 
 	handler.getImportPath(function (path) {
 		if (path !== importPath) {
+			setDisabled(!isValid(path));
 			setImportPath(path);
 		}
 	});
@@ -25,11 +35,25 @@ function Import(props) {
 
 		var row2 = {
 			font: css.font.content,
-			color: config.allowedExtensions.includes(importPath.split('.').slice(-1)[0]) ? css.colors.textSuccess : css.colors.textError
+			color: isValid(importPath) ? css.colors.textSuccess : css.colors.textError
 		};
 		var rowContent = css.rowContent;
 
-		return { importStyle: importStyle, rowContent: rowContent, row1: row1, row2: row2 };
+		var importButtonContainer = {
+			width: '100%'
+		};
+		Object.assign(importButtonContainer, css.flexRow, css.flexCenter);
+
+		var addButtonStyle = {
+			marginTop: '20px'
+		};
+		Object.assign(addButtonStyle, css.flexRow, css.flexCenter);
+
+		var iconStyle = {
+			marginRight: '10px'
+		};
+
+		return { importStyle: importStyle, rowContent: rowContent, row1: row1, row2: row2, importButtonContainer: importButtonContainer, addButtonStyle: addButtonStyle, iconStyle: iconStyle };
 	}
 	// Make css
 
@@ -37,37 +61,68 @@ function Import(props) {
 	    importStyle = _makeStyles.importStyle,
 	    rowContent = _makeStyles.rowContent,
 	    row1 = _makeStyles.row1,
-	    row2 = _makeStyles.row2;
+	    row2 = _makeStyles.row2,
+	    importButtonContainer = _makeStyles.importButtonContainer,
+	    addButtonStyle = _makeStyles.addButtonStyle,
+	    iconStyle = _makeStyles.iconStyle;
 
 	//Renderer
 
 
 	return React.createElement(
 		'div',
-		{ style: importStyle },
+		null,
 		React.createElement(
-			Row,
-			{ even: true, style: row1 },
+			'div',
+			{ style: importStyle },
 			React.createElement(
-				'div',
-				{ style: rowContent },
-				'New Map File (.zip, .udk, .upk) :'
+				Row,
+				{ even: true, style: row1 },
+				React.createElement(
+					'div',
+					{ style: rowContent },
+					'New Map File (.zip, .udk, .upk) :'
+				)
+			),
+			React.createElement(
+				Row,
+				{ style: row2 },
+				React.createElement(
+					'div',
+					{ style: rowContent },
+					importPath || '-'
+				),
+				React.createElement(
+					Button,
+					{
+						onClick: function onClick() {
+							handler.editImportFile(importPath);
+						},
+						style: rowContent
+					},
+					React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
+				)
 			)
 		),
 		React.createElement(
-			Row,
-			{ style: row2 },
-			React.createElement(
-				'div',
-				{ style: rowContent },
-				importPath || '-'
-			),
+			'div',
+			{ style: importButtonContainer },
 			React.createElement(
 				Button,
-				{ onClick: function onClick() {
-						props.onMapImport(importPath);
-					}, style: rowContent },
-				React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
+				{
+					background: config.css.colors.button,
+					style: addButtonStyle,
+					disabled: disabled,
+					onClick: function onClick() {
+						isValid(importPath) && handler.importMap(importPath);
+					}
+				},
+				React.createElement(Icon, { style: iconStyle, icon: config.icons.ADD, color: config.css.colors.icon, size: config.css.iconSize }),
+				React.createElement(
+					'div',
+					null,
+					'ADD THE MAP'
+				)
 			)
 		)
 	);
