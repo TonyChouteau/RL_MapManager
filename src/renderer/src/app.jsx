@@ -25,10 +25,10 @@ function App(props) {
 	const { styleContainer, styleContainer2 } = makeStyles(config.css);
 
 	// Define React state
-	const [state, setState] = React.useState(config.states.IMPORT);
+	const [state, setState] = React.useState(config.states.LIST);
+	const [gameFolder, setGameFolder] = React.useState("D:\\Program\\rocketleague");
 
 	function handleStateChange(state) {
-		console.log(state);
 		setState(state);
 	}
 
@@ -37,7 +37,7 @@ function App(props) {
 		<div style={styleContainer}>
 			<div style={styleContainer2}>
 				<Header state={state} size={config.css.iconSize} handleStateChange={handleStateChange} />
-				<Content />
+				<Content state={state} gameFolder={gameFolder}/>
 			</div>
 		</div>
 	);

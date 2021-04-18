@@ -16,11 +16,9 @@ function Header(props) {
 		var styleButtonContainer = {};
 		Object.assign(styleButtonContainer, css.flexRow);
 
-		var buttonStyle = {
-			height: css.headerHeight
-		};
+		var buttonMarginStyle = { marginRight: '10px' };
 
-		return { headerStyle: headerStyle, cornerStyle: cornerStyle, styleButtonContainer: styleButtonContainer, buttonStyle: buttonStyle };
+		return { headerStyle: headerStyle, cornerStyle: cornerStyle, styleButtonContainer: styleButtonContainer, buttonMarginStyle: buttonMarginStyle };
 	}
 	// Make css
 
@@ -28,7 +26,7 @@ function Header(props) {
 	    headerStyle = _makeStyles.headerStyle,
 	    cornerStyle = _makeStyles.cornerStyle,
 	    styleButtonContainer = _makeStyles.styleButtonContainer,
-	    buttonStyle = _makeStyles.buttonStyle;
+	    buttonMarginStyle = _makeStyles.buttonMarginStyle;
 
 	// Make Title
 
@@ -54,7 +52,8 @@ function Header(props) {
 				React.createElement(
 					Button,
 					{
-						style: buttonStyle,
+						background: config.css.colors.button,
+						style: buttonMarginStyle,
 						onClick: function onClick() {
 							props.handleStateChange(config.states.SETTINGS);
 						}
@@ -64,7 +63,7 @@ function Header(props) {
 				React.createElement(
 					Button,
 					{
-						style: buttonStyle,
+						background: config.css.colors.button,
 						type: config.icons.ADD,
 						onClick: function onClick() {
 							props.handleStateChange(config.states.IMPORT);
@@ -80,7 +79,6 @@ function Header(props) {
 				React.createElement(
 					Button,
 					{
-						style: buttonStyle,
 						onClick: function onClick() {
 							props.handleStateChange(config.states.LIST);
 						}

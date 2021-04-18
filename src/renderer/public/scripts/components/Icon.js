@@ -13,6 +13,7 @@ function Icon(props) {
 
 		return { imgStyle: imgStyle };
 	}
+	// Make css
 
 	var _makeStyles = makeStyles(),
 	    imgStyle = _makeStyles.imgStyle;

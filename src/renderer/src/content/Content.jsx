@@ -1,3 +1,35 @@
 function Content(props) {
-	return <div></div>;
-};
+	// Define the makeStyles function
+	function makeStyles(css) {
+		let contentStyle = {
+			width: '100%',
+			height: 'calc(100% - ' + css.headerHeight + ')',
+		};
+
+		return { contentStyle };
+	}
+	// Make css
+	let { contentStyle } = makeStyles(config.css);
+
+	// Make content
+	function MakeContent() {
+		switch (props.state) {
+			case config.states.LIST:
+				return <div>Table</div>;
+				break;
+			case config.states.IMPORT:
+				return <div>Import</div>;
+				break;
+			case config.states.SETTINGS:
+				return <Settings gameFolder={props.gameFolder} />;
+				break;
+		}
+	}
+
+	//Renderer
+	return (
+		<div style={contentStyle}>
+			<MakeContent />
+		</div>
+	);
+}

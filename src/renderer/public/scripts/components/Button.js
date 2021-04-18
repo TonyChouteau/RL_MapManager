@@ -27,9 +27,13 @@ function Button(props) {
 
 		return { buttonStyle: buttonStyle };
 	}
+	// Make css
 
 	var _makeStyles = makeStyles(config.css),
 	    buttonStyle = _makeStyles.buttonStyle;
+
+	// Simulate CSS Hover
+
 
 	function handleHover(state) {
 		setHover(state);

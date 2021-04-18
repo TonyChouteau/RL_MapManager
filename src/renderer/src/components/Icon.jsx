@@ -13,6 +13,7 @@ function Icon(props) {
 
 		return { imgStyle };
 	}
+	// Make css
 	let { imgStyle } = makeStyles();
 
 	// Renderer

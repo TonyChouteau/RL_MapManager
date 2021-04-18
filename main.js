@@ -11,9 +11,9 @@ const FileManager = require("./src/engine/FileManager");
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
-function defineAPI(win) {
+function defineAPI(win, app) {
 	// Add Api Access to NodeJS
-	let fileManager = FileManager(win).addIpcListener();
+	let fileManager = FileManager(win, app).addIpcListener();
 }
 
 // Make the Window
@@ -42,7 +42,7 @@ function createWindow() {
 	win.webContents.openDevTools();
 
 	win.webContents.once('dom-ready', () => {
-		defineAPI(win);
+		defineAPI(win, app);
 	});
 }
 

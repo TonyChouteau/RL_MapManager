@@ -6,7 +6,7 @@
 	<title>*</title>
 	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 
-	<link href="./styles/index.css" type="text/css" rel="stylesheet"/>
+	<link href="./styles/index.css" type="text/css" rel="stylesheet" />
 
 	<!-- Development scripts -->
 	<script src="./libs/dev/react.js" crossorigin></script>
@@ -20,13 +20,6 @@
 	<!-- App Entry Point -->
 	<div id="scripts"></div>
 	<div id="app"></div>
-	
-	<!-- React Api Load -->
-	<script>
-		window.api.receive("ready", (appName) => {
-			document.title = appName;
-		});
-    </script>
 
 	<!-- Config -->
 	<script src="./scripts/Config.js"></script>
@@ -34,14 +27,28 @@
 	<!-- Handler -->
 	<script src="./scripts/Handler.js"></script>
 	
+	<!-- React Api Load -->
+	<script>
+		let handler = new Handler();
+		window.api.receive('ready', (appName) => {
+			document.title = appName;
+			handler.addIpcListener();
+		});
+	</script>
+
 	<!-- React Components -->
 	<script src="./scripts/components/Icon.js"></script>
+	<script src="./scripts/components/Button.js"></script>
 
 	<!-- Header -->
 	<script src="./scripts/header/Return.js"></script>
-	<script src="./scripts/header/Button.js"></script>
 	<script src="./scripts/header/Title.js"></script>
 	<script src="./scripts/header/Header.js"></script>
+
+	<!-- Content -->
+	<script src="./scripts/content/Row.js"></script>
+	<script src="./scripts/content/Settings.js"></script>
+	<script src="./scripts/content/Content.js"></script>
 
 	<!-- Content -->
 	<script src="./scripts/content/Content.js"></script>

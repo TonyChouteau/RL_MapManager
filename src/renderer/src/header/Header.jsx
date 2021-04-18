@@ -13,18 +13,15 @@ function Header(props) {
 		};
 		Object.assign(cornerStyle, css.flexRow, css.flexLeft);
 
-		const styleButtonContainer = {
-		};
+		const styleButtonContainer = {};
 		Object.assign(styleButtonContainer, css.flexRow);
 
-		const buttonStyle = {
-			height: css.headerHeight,
-		}
+		const buttonMarginStyle = { marginRight: '10px' };
 
-		return { headerStyle, cornerStyle, styleButtonContainer, buttonStyle };
+		return { headerStyle, cornerStyle, styleButtonContainer, buttonMarginStyle };
 	}
 	// Make css
-	const { headerStyle, cornerStyle, styleButtonContainer, buttonStyle } = makeStyles(config.css);
+	const { headerStyle, cornerStyle, styleButtonContainer, buttonMarginStyle } = makeStyles(config.css);
 
 	// Make Title
 	function MakeTitle() {
@@ -41,21 +38,22 @@ function Header(props) {
 			return (
 				<div style={styleButtonContainer}>
 					<Button
-						style={buttonStyle}
+						background={config.css.colors.button}
+						style={buttonMarginStyle}
 						onClick={() => {
 							props.handleStateChange(config.states.SETTINGS);
 						}}
 					>
-						<Icon icon={config.icons.SETTINGS} color={config.css.colors.icon} size={config.css.iconSize}/>
+						<Icon icon={config.icons.SETTINGS} color={config.css.colors.icon} size={config.css.iconSize} />
 					</Button>
 					<Button
-						style={buttonStyle}
+						background={config.css.colors.button}
 						type={config.icons.ADD}
 						onClick={() => {
 							props.handleStateChange(config.states.IMPORT);
 						}}
 					>
-						<Icon icon={config.icons.ADD} color={config.css.colors.icon} size={config.css.iconSize}/>
+						<Icon icon={config.icons.ADD} color={config.css.colors.icon} size={config.css.iconSize} />
 					</Button>
 				</div>
 			);
@@ -63,7 +61,6 @@ function Header(props) {
 			return (
 				<div>
 					<Button
-						style={buttonStyle}
 						onClick={() => {
 							props.handleStateChange(config.states.LIST);
 						}}
