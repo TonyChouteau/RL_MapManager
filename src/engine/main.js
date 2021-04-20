@@ -5,7 +5,7 @@ const path = require('path');
 
 // Own Modules
 const { config } = require('../config');
-const FileManager = require("./FileManager");
+const { getFileManager } = require('./FileManager');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -13,14 +13,14 @@ let win;
 
 function defineAPI(win, app) {
 	// Add Api Access to NodeJS
-	let fileManager = FileManager(win, app).addIpcListener();
+	let fileManager = getFileManager(win, app).addIpcListener();
 }
 
 // Make the Window
 function createWindow() {
 	win = new BrowserWindow({
-		src: "./",
-		icon:'./build/app_icon.ico',
+		src: './',
+		icon: './build/app_icon.ico',
 		width: 900,
 		height: 600,
 		resizable: false,
