@@ -11,6 +11,7 @@ exports.config = {
 		'get-list', 
 		'add-map', 
 		'handle-selected',
+		'remove',
 	],
 	receive_channels: [
 		'ready', 

@@ -9,9 +9,8 @@ let Handler = function () {
 };
 
 Handler.prototype = {
-
 	message: function (channel, data) {
-		window.api.send(channel, data);	
+		window.api.send(channel, data);
 	},
 
 	addIpcListener: function () {
@@ -52,32 +51,32 @@ Handler.prototype = {
 
 	// Asynchronous Getters
 	getAppPath: function (handler) {
-		this.appPathHandler = handler
-		
+		this.appPathHandler = handler;
+
 		if (this.appPath) {
 			return handler(this.appPath);
 		}
 	},
 	getGamePath: function (handler) {
 		this.gamePathHandler = handler;
-		
+
 		if (this.gamePath) {
 			return handler(this.gamePath);
 		}
 	},
-	getImportPath: function(handler) {
+	getImportPath: function (handler) {
 		this.importPathHandler = handler;
 		if (this.importPath) {
 			return handler(this.importPath);
 		}
 	},
-	getList: function(handler) {
+	getList: function (handler) {
 		this.listHandler = handler;
 		if (this.list) {
 			return handler(this.list);
 		}
 	},
-	getSelected: function(handler) {
+	getSelected: function (handler) {
 		this.selectedHandler = handler;
 		if (this.selected) {
 			return handler(this.selected);
@@ -110,7 +109,16 @@ Handler.prototype = {
 			name: data.name,
 		});
 	},
-	setSelected: function (data) {
-		this.message("handle-selected", data);
+	setSelected: function (id) {
+		this.message('handle-selected', id);
+	},
+	deleteMap: function (id) {
+		if (this.selected === id) {
+			this.selectedHandler(null);
+		} else if (this.selected > id) {
+			this.selected--;
+			this.selectedHandler(this.selected);
+		}
+		this.message('remove', id);
 	},
 };

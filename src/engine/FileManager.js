@@ -6,7 +6,7 @@ const isDev = require('electron-is-dev');
 let Zip = require('adm-zip');
 
 // Own Modules
-const { config } = require('../config');
+const { config } = require('./Config');
 const { getSaveManager } = require('./SaveManager');
 
 // Class Constructor
@@ -162,6 +162,16 @@ FileManager.prototype = {
 		}
 	},
 
+	removeMap: function (id) {
+		this.saveManager.removeIndexFromList("list", id, (removed) => {
+			let mapPath = path.join(this.currentAppPath, 'MAPS', (removed || "") + '.upk');
+			console.log(mapPath);
+			fs.unlink(mapPath, (err) => {
+				this.handleCustomMapFolder();
+			});
+		})
+	},
+
 	// Main event listener
 	addIpcListener: function () {
 		ipcMain.on('get-path', () => {
@@ -181,6 +191,9 @@ FileManager.prototype = {
 		});
 		ipcMain.on('handle-selected', (_, data) => {
 			this.handleSelected(data);
+		});
+		ipcMain.on('remove', (_, data) => {
+			this.removeMap(data);
 		});
 	},
 };

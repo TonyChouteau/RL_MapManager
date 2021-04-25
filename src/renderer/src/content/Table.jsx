@@ -36,7 +36,9 @@ function Table(props) {
 						<Row key={id} style={row2}>
 							<div style={rowContent}>{map}</div>
 							<div style={rowContent}>
-								<Button onClick={() => {}}>
+								<Button onClick={() => {
+									handler.deleteMap(id);
+								}}>
 									<Icon
 										icon={config.icons.TRASH}
 										color={config.css.colors.icon}

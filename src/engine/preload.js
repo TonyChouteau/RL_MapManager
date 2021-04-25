@@ -1,7 +1,7 @@
 // Vendors Modules
 const { contextBridge, ipcRenderer } = require('electron');
 
-const { config } = require('../config');
+const { config } = require('./Config');
 
 contextBridge.exposeInMainWorld('api', {
 	send: (channel, data) => {

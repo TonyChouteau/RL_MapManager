@@ -46,11 +46,12 @@ function App(props) {
 	const [list, setList] = React.useState([]);
 	handler.getList((newList) => {
 		if (newList.length !== list.length) {
+			setState(config.states.LIST);
 			setList(newList);
 		}
 	});
 
-	const [selected, setSelected] = React.useState();
+	const [selected, setSelected] = React.useState(null);
 	handler.getSelected((newSelected) => {
 		if (newSelected != selected) {
 			setSelected(newSelected);

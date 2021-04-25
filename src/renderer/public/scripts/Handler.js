@@ -11,7 +11,6 @@ var Handler = function Handler() {
 };
 
 Handler.prototype = {
-
 	message: function message(channel, data) {
 		window.api.send(channel, data);
 	},
@@ -114,7 +113,16 @@ Handler.prototype = {
 			name: data.name
 		});
 	},
-	setSelected: function setSelected(data) {
-		this.message("handle-selected", data);
+	setSelected: function setSelected(id) {
+		this.message('handle-selected', id);
+	},
+	deleteMap: function deleteMap(id) {
+		if (this.selected === id) {
+			this.selectedHandler(null);
+		} else if (this.selected > id) {
+			this.selected--;
+			this.selectedHandler(this.selected);
+		}
+		this.message('remove', id);
 	}
 };

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Own Modules
-const { config } = require('../config');
+const { config } = require('./Config');
 
 function SaveManager() {
 	this.savePath = path.join(config.save_path, 'save.json');
@@ -42,7 +42,7 @@ SaveManager.prototype = {
 		});
 	},
 
-	addDataToList: function(key, value, callback) {
+	addDataToList: function (key, value, callback) {
 		fs.access(this.savePath, (err) => {
 			if (err) {
 				let data = {};
@@ -54,7 +54,7 @@ SaveManager.prototype = {
 					if (err) return;
 					let dataJson = JSON.parse(data || '{}');
 					let list = dataJson[key] || [];
-					list.push(value)
+					list.push(value);
 					dataJson[key] = list;
 					fs.writeFile(this.savePath, JSON.stringify(dataJson), () => {});
 					if (callback) callback();
@@ -62,11 +62,49 @@ SaveManager.prototype = {
 			}
 		});
 	},
+
+	removeFromList: function (key, toRemove, removeById, callback) {
+		fs.access(this.savePath, (err) => {
+			if (err) {
+				let data = {};
+				data[key] = [];
+				fs.writeFile(this.savePath, JSON.stringify(data), () => {});
+				if (callback) callback();
+			} else {
+				fs.readFile(this.savePath, 'utf8', (err, data) => {
+					if (err) return;
+					let dataJson = JSON.parse(data || '{}');
+					let list = dataJson[key] || [];
+					let removed;
+					dataJson[key] = list.filter((value, index) => {
+						if (removeById) {
+							if (index === toRemove) removed = value;
+							return index !== toRemove;
+						} else {
+							if (value === toRemove) removed = value;
+							return value !== toRemove;
+						}
+						
+					});
+					fs.writeFile(this.savePath, JSON.stringify(dataJson), () => {});
+					if (callback) callback(removed);
+				});
+			}
+		});
+	},
+
+	removeDataFromList: function (key, value, callback) {
+		this.removeFromList(key, value, false, callback);
+	},
+
+	removeIndexFromList: function(key, index, callback) {
+		this.removeFromList(key, index, true, callback);
+	},
 };
 
 module.exports = {
-	SaveManager : SaveManager,
-	getSaveManager : function() {
+	SaveManager: SaveManager,
+	getSaveManager: function () {
 		return new SaveManager();
-	}
-}
+	},
+};

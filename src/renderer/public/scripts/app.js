@@ -70,11 +70,12 @@ function App(props) {
 
 	handler.getList(function (newList) {
 		if (newList.length !== list.length) {
+			setState(config.states.LIST);
 			setList(newList);
 		}
 	});
 
-	var _React$useState9 = React.useState(),
+	var _React$useState9 = React.useState(null),
 	    _React$useState10 = _slicedToArray(_React$useState9, 2),
 	    selected = _React$useState10[0],
 	    setSelected = _React$useState10[1];

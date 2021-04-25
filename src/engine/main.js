@@ -4,7 +4,7 @@ const isDev = require('electron-is-dev');
 const path = require('path');
 
 // Own Modules
-const { config } = require('../config');
+const { config } = require('./Config');
 const { getFileManager } = require('./FileManager');
 
 // Keep a global reference of the window object, if you don't, the window will
