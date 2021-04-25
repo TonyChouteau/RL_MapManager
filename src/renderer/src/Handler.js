@@ -4,11 +4,16 @@ let Handler = function () {
 
 	window.api.receive('ready', (appName) => {
 		document.title = appName;
-		handler.addIpcListener();
+		this.addIpcListener();
 	});
 };
 
 Handler.prototype = {
+
+	message: function (channel, data) {
+		window.api.send(channel, data);	
+	},
+
 	addIpcListener: function () {
 		window.api.receive('app-path', (path) => {
 			this.appPath = path;
@@ -34,8 +39,15 @@ Handler.prototype = {
 				this.listHandler(list);
 			}
 		});
+		window.api.receive('selected', (selected) => {
+			this.selected = selected;
+			if (this.selectedHandler) {
+				this.selectedHandler(selected);
+			}
+		});
 		window.api.send('get-path');
 		window.api.send('get-list');
+		window.api.send('handle-selected');
 	},
 
 	// Asynchronous Getters
@@ -65,31 +77,40 @@ Handler.prototype = {
 			return handler(this.list);
 		}
 	},
+	getSelected: function(handler) {
+		this.selectedHandler = handler;
+		if (this.selected) {
+			return handler(this.selected);
+		}
+	},
 
 	// Edit Path Handler
 	editAppFolder: function () {
-		window.api.send('edit-folder', {
+		this.message('edit-folder', {
 			type: 'app',
 			title: 'Choose the folder to save custom maps',
 		});
 	},
 	editGameFolder: function () {
-		window.api.send('edit-folder', {
+		this.message('edit-folder', {
 			type: 'game',
 			title: 'Select the game folder',
 		});
 	},
 
 	editImportFile: function (path) {
-		window.api.send('edit-import', {
+		this.message('edit-import', {
 			title: 'Select the new map to import (.zip, .udk, .upk)',
 			defaultPath: path,
 		});
 	},
 	importMap: function (data) {
-		window.api.send('add-map', {
+		this.message('add-map', {
 			path: data.path,
 			name: data.name,
 		});
+	},
+	setSelected: function (data) {
+		this.message("handle-selected", data);
 	},
 };

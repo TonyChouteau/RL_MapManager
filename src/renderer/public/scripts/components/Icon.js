@@ -7,12 +7,14 @@ function Icon(props) {
 			height: +props.size + 5 + 'px',
 			backgroundColor: props.color,
 			mask: 'url(' + config.svg_path + props.icon + ') no-repeat center',
-			WebkitMask: 'url(' + config.svg_path + props.icon + ') no-repeat center'
+			WebkitMask: 'url(' + config.svg_path + props.icon + ') no-repeat center',
+			transform: 'rotate(' + (props.rotate || 0) + 'deg)'
 		};
 		Object.assign(imgStyle, props.style);
 
 		return { imgStyle: imgStyle };
 	}
+
 	// Make css
 
 	var _makeStyles = makeStyles(),

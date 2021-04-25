@@ -8,11 +8,13 @@ function Icon(props) {
 			backgroundColor: props.color,
 			mask: 'url(' + config.svg_path + props.icon + ') no-repeat center',
 			WebkitMask: 'url(' + config.svg_path + props.icon + ') no-repeat center',
+			transform: 'rotate(' + (props.rotate || 0) + 'deg)',
 		};
 		Object.assign(imgStyle, props.style);
 
 		return { imgStyle };
 	}
+
 	// Make css
 	let { imgStyle } = makeStyles();
 

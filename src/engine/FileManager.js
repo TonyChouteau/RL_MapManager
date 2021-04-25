@@ -23,16 +23,20 @@ let FileManager = function (win, app) {
 };
 
 FileManager.prototype = {
+	message: function (channel, data) {
+		this.win.webContents.send(channel, data);
+	},
+
 	getPath: function () {
 		this.saveManager.getData('game', (gamePath) => {
 			if (gamePath) {
 				this.currentGamePath = gamePath;
-				this.win.webContents.send('game-path', gamePath);
+				this.message('game-path', gamePath);
 			}
 		});
 		this.saveManager.getData('app', (appPath) => {
 			this.currentAppPath = appPath || this.app_path;
-			this.win.webContents.send('app-path', appPath || this.app_path);
+			this.message('app-path', appPath || this.app_path);
 		});
 	},
 
@@ -56,7 +60,7 @@ FileManager.prototype = {
 					} else {
 						this.currentGamePath = newPath;
 					}
-					this.win.webContents.send(data.type + '-path', newPath);
+					this.message(data.type + '-path', newPath);
 				}
 			});
 	},
@@ -72,7 +76,7 @@ FileManager.prototype = {
 			.then((rep) => {
 				if (!rep.canceled) {
 					const newPath = rep.filePaths[0];
-					this.win.webContents.send('to-open', newPath);
+					this.message('to-open', newPath);
 				}
 			});
 	},
@@ -85,8 +89,21 @@ FileManager.prototype = {
 			}
 			fs.readdir(customFolder, (err, files) => {
 				if (err) return;
-				files = files.filter((file) => file.split('.').splice(-1)[0] === 'upk');
-				this.win.webContents.send('list', files);
+				this.saveManager.getData('list', (value) => {
+					let list = value || [];
+					files = files
+						.filter((file) => {
+							return file.split('.').splice(-1)[0] === 'upk';
+						})
+						.map((file) => {
+							let splitedName = file.split('.');
+							return splitedName.splice(0, splitedName.length - 1).join('.');
+						});
+					this.message(
+						'list',
+						list.filter((map) => files.includes(map))
+					);
+				});
 			});
 		});
 	},
@@ -97,13 +114,12 @@ FileManager.prototype = {
 		let newMapCount = 0;
 		if (['zip', 'rar'].includes(newMapPath.split('.').splice(-1)[0])) {
 			let zip = new Zip(newMapPath);
-			zip.getEntries().forEach(function (entry) {
+			zip.getEntries().forEach((entry) => {
 				let fileName = entry.entryName;
 				if (['upk', 'udk'].includes(fileName.split('.').splice(-1)[0])) {
 					newMapCount++;
 					var decompressedData = zip.readFile(entry);
 					let newPath = path.join(customFolder, data.name + '.upk');
-					console.log(newPath);
 					fs.writeFileSync(newPath, decompressedData);
 				}
 			});
@@ -112,10 +128,13 @@ FileManager.prototype = {
 					title: 'Success',
 					message: 'Map successfully added',
 				});
+				this.saveManager.addDataToList('list', data.name, () => {
+					this.handleCustomMapFolder();
+				});
 			} else {
 				dialog.showErrorBox('Error', 'Wrong file given, no map added');
+				this.handleCustomMapFolder();
 			}
-			this.handleCustomMapFolder();
 		} else if (['upk', 'udk'].includes(newMapPath.split('.').splice(-1)[0])) {
 			fs.readFile(newMapPath, (err, fileData) => {
 				if (err) return;
@@ -125,7 +144,20 @@ FileManager.prototype = {
 					title: 'Success',
 					message: 'Map successfully added',
 				});
-				this.handleCustomMapFolder();
+				this.saveManager.addDataToList('list', data.name, () => {
+					this.handleCustomMapFolder();
+				});
+			});
+		}
+	},
+
+	handleSelected: function (data) {
+		if (!isNaN(data)) {
+			this.saveManager.saveData('selected', data);
+			this.message('selected', data);
+		} else {
+			this.saveManager.getData('selected', (savedData) => {
+				this.message('selected', savedData || 0);
 			});
 		}
 	},
@@ -146,6 +178,9 @@ FileManager.prototype = {
 		});
 		ipcMain.on('add-map', (_, data) => {
 			this.handleAddMap(data);
+		});
+		ipcMain.on('handle-selected', (_, data) => {
+			this.handleSelected(data);
 		});
 	},
 };

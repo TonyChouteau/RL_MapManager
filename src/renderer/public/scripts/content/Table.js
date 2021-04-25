@@ -6,7 +6,8 @@ function Table(props) {
 			background: css.colors.background2
 		};
 
-		var rowContent = css.rowContent;
+		var rowContent = {};
+		Object.assign(rowContent, css.rowContent, css.flexRow);
 
 		var row1 = {
 			font: css.font.subTitle
@@ -39,22 +40,57 @@ function Table(props) {
 			React.createElement(
 				'div',
 				{ style: rowContent },
-				'Current : '
+				'Current : ',
+				props.list[props.selected]
 			)
 		),
-		React.createElement(
-			Row,
-			{ style: row2 },
-			React.createElement(
-				'div',
-				{ style: rowContent },
-				props.gameFolder || config.gamePathDefault
-			),
-			React.createElement(
-				Button,
-				{ onClick: handler.editGameFolder, style: rowContent },
-				React.createElement(Icon, { icon: config.icons.EDIT, color: config.css.colors.icon, size: config.css.iconSize })
-			)
-		)
+		props.list.map(function (map, id) {
+			if (id === props.selected) return;
+			return React.createElement(
+				Row,
+				{ key: id, style: row2 },
+				React.createElement(
+					'div',
+					{ style: rowContent },
+					map
+				),
+				React.createElement(
+					'div',
+					{ style: rowContent },
+					React.createElement(
+						Button,
+						{ onClick: function onClick() {} },
+						React.createElement(Icon, {
+							icon: config.icons.TRASH,
+							color: config.css.colors.icon,
+							size: config.css.iconSize
+						})
+					),
+					React.createElement(
+						Button,
+						{ onClick: function onClick() {} },
+						React.createElement(Icon, {
+							icon: config.icons.EDIT,
+							color: config.css.colors.icon,
+							size: config.css.iconSize
+						})
+					),
+					React.createElement(
+						Button,
+						{
+							onClick: function onClick() {
+								handler.setSelected(id);
+							}
+						},
+						React.createElement(Icon, {
+							icon: config.icons.ARROW,
+							color: config.css.colors.icon,
+							size: config.css.iconSize,
+							rotate: 180
+						})
+					)
+				)
+			);
+		})
 	);
 }

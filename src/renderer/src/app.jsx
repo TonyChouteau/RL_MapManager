@@ -49,6 +49,14 @@ function App(props) {
 			setList(newList);
 		}
 	});
+
+	const [selected, setSelected] = React.useState();
+	handler.getSelected((newSelected) => {
+		if (newSelected != selected) {
+			setSelected(newSelected);
+		}
+	});
+
 	// Renderer
 	return (
 		<div style={styleContainer}>
@@ -57,6 +65,7 @@ function App(props) {
 				<Content
 					state={state}
 					list={list}
+					selected={selected}
 					// Settings
 					appFolder={appFolder}
 					gameFolder={gameFolder}

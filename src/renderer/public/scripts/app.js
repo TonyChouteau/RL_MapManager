@@ -73,6 +73,18 @@ function App(props) {
 			setList(newList);
 		}
 	});
+
+	var _React$useState9 = React.useState(),
+	    _React$useState10 = _slicedToArray(_React$useState9, 2),
+	    selected = _React$useState10[0],
+	    setSelected = _React$useState10[1];
+
+	handler.getSelected(function (newSelected) {
+		if (newSelected != selected) {
+			setSelected(newSelected);
+		}
+	});
+
 	// Renderer
 	return React.createElement(
 		'div',
@@ -83,7 +95,8 @@ function App(props) {
 			React.createElement(Header, { state: state, size: config.css.iconSize, handleStateChange: handleStateChange }),
 			React.createElement(Content, {
 				state: state,
-				list: list
+				list: list,
+				selected: selected
 				// Settings
 				, appFolder: appFolder,
 				gameFolder: gameFolder

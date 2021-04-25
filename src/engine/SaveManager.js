@@ -17,7 +17,7 @@ SaveManager.prototype = {
 					if (err) return;
 					let dataJson = JSON.parse(data || '{}');
 					let value = dataJson[key];
-					callback(value);
+					if (callback) callback(value);
 				});
 			} else {
 				callback();
@@ -37,6 +37,27 @@ SaveManager.prototype = {
 					let dataJson = JSON.parse(data || '{}');
 					dataJson[key] = value;
 					fs.writeFile(this.savePath, JSON.stringify(dataJson), () => {});
+				});
+			}
+		});
+	},
+
+	addDataToList: function(key, value, callback) {
+		fs.access(this.savePath, (err) => {
+			if (err) {
+				let data = {};
+				data[key] = [value];
+				fs.writeFile(this.savePath, JSON.stringify(data), () => {});
+				if (callback) callback();
+			} else {
+				fs.readFile(this.savePath, 'utf8', (err, data) => {
+					if (err) return;
+					let dataJson = JSON.parse(data || '{}');
+					let list = dataJson[key] || [];
+					list.push(value)
+					dataJson[key] = list;
+					fs.writeFile(this.savePath, JSON.stringify(dataJson), () => {});
+					if (callback) callback();
 				});
 			}
 		});
