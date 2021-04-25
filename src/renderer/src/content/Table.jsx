@@ -28,46 +28,59 @@ function Table(props) {
 		<div style={contentStyle}>
 			<Row even style={row1}>
 				<div style={rowContent}>Current : {props.list[props.selected]}</div>
+				<div style={rowContent}>
+					<Button
+						onClick={() => {
+							handler.deleteMap(props.selected);
+						}}
+					>
+						<Icon icon={config.icons.TRASH} color={config.css.colors.icon} size={config.css.iconSize} />
+					</Button>
+					<Switch>
+						O/X
+					</Switch>
+				</div>
 			</Row>
-			{props.list
-				.map((map, id) => {
-					if (id === props.selected) return;
-					return (
-						<Row key={id} style={row2}>
-							<div style={rowContent}>{map}</div>
-							<div style={rowContent}>
-								<Button onClick={() => {
+			{props.list.map((map, id) => {
+				if (id === props.selected) return;
+				return (
+					<Row key={id} style={row2}>
+						<div style={rowContent}>{map}</div>
+						<div style={rowContent}>
+							<Button
+								onClick={() => {
 									handler.deleteMap(id);
-								}}>
-									<Icon
-										icon={config.icons.TRASH}
-										color={config.css.colors.icon}
-										size={config.css.iconSize}
-									/>
-								</Button>
-								<Button onClick={() => {}}>
-									<Icon
-										icon={config.icons.EDIT}
-										color={config.css.colors.icon}
-										size={config.css.iconSize}
-									/>
-								</Button>
-								<Button
-									onClick={() => {
-										handler.setSelected(id);
-									}}
-								>
-									<Icon
-										icon={config.icons.ARROW}
-										color={config.css.colors.icon}
-										size={config.css.iconSize}
-										rotate={180}
-									/>
-								</Button>
-							</div>
-						</Row>
-					);
-				})}
+								}}
+							>
+								<Icon
+									icon={config.icons.TRASH}
+									color={config.css.colors.icon}
+									size={config.css.iconSize}
+								/>
+							</Button>
+							<Button onClick={() => {}}>
+								<Icon
+									icon={config.icons.EDIT}
+									color={config.css.colors.icon}
+									size={config.css.iconSize}
+								/>
+							</Button>
+							<Button
+								onClick={() => {
+									handler.setSelected(id);
+								}}
+							>
+								<Icon
+									icon={config.icons.ARROW}
+									color={config.css.colors.icon}
+									size={config.css.iconSize}
+									rotate={180}
+								/>
+							</Button>
+						</div>
+					</Row>
+				);
+			})}
 		</div>
 	);
 }

@@ -42,6 +42,24 @@ function Table(props) {
 				{ style: rowContent },
 				'Current : ',
 				props.list[props.selected]
+			),
+			React.createElement(
+				'div',
+				{ style: rowContent },
+				React.createElement(
+					Button,
+					{
+						onClick: function onClick() {
+							handler.deleteMap(props.selected);
+						}
+					},
+					React.createElement(Icon, { icon: config.icons.TRASH, color: config.css.colors.icon, size: config.css.iconSize })
+				),
+				React.createElement(
+					Switch,
+					null,
+					'O/X'
+				)
 			)
 		),
 		props.list.map(function (map, id) {
@@ -59,9 +77,11 @@ function Table(props) {
 					{ style: rowContent },
 					React.createElement(
 						Button,
-						{ onClick: function onClick() {
+						{
+							onClick: function onClick() {
 								handler.deleteMap(id);
-							} },
+							}
+						},
 						React.createElement(Icon, {
 							icon: config.icons.TRASH,
 							color: config.css.colors.icon,
