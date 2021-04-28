@@ -58,6 +58,13 @@ function App(props) {
 		}
 	});
 
+	const [active, setActive] = React.useState(false);
+	handler.getActive((newActive) => {
+		if (newActive != active) {
+			setActive(newActive);
+		}
+	});
+
 	// Renderer
 	return (
 		<div style={styleContainer}>
@@ -67,6 +74,7 @@ function App(props) {
 					state={state}
 					list={list}
 					selected={selected}
+					active={active}
 					// Settings
 					appFolder={appFolder}
 					gameFolder={gameFolder}

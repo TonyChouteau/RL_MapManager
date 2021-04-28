@@ -22,11 +22,11 @@ function Table(props) {
 	}
 	// Make css
 	let { contentStyle, rowContent, row1, row2 } = makeStyles(config.css);
-
+	
 	// Renderer
 	return (
 		<div style={contentStyle}>
-			<Row even style={row1}>
+			<Row even style={row1} hide={(props.selected === undefined) || (props.selected === null)}>
 				<div style={rowContent}>Current : {props.list[props.selected]}</div>
 				<div style={rowContent}>
 					<Button
@@ -36,9 +36,13 @@ function Table(props) {
 					>
 						<Icon icon={config.icons.TRASH} color={config.css.colors.icon} size={config.css.iconSize} />
 					</Button>
-					<Switch>
-						O/X
-					</Switch>
+					<Switch
+						state={props.active ? Switch.ON : Switch.OFF}
+						size={config.css.iconSize}
+						onClick={() => {
+							handler.switchActive();
+						}}
+					></Switch>
 				</div>
 			</Row>
 			{props.list.map((map, id) => {

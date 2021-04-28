@@ -86,6 +86,17 @@ function App(props) {
 		}
 	});
 
+	var _React$useState11 = React.useState(false),
+	    _React$useState12 = _slicedToArray(_React$useState11, 2),
+	    active = _React$useState12[0],
+	    setActive = _React$useState12[1];
+
+	handler.getActive(function (newActive) {
+		if (newActive != active) {
+			setActive(newActive);
+		}
+	});
+
 	// Renderer
 	return React.createElement(
 		'div',
@@ -97,7 +108,8 @@ function App(props) {
 			React.createElement(Content, {
 				state: state,
 				list: list,
-				selected: selected
+				selected: selected,
+				active: active
 				// Settings
 				, appFolder: appFolder,
 				gameFolder: gameFolder

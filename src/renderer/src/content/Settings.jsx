@@ -30,7 +30,7 @@ function Settings(props) {
 			</Row>
 			<Row style={row2}>
 				<div style={rowContent}>{props.gameFolder || config.gamePathDefault}</div>
-				<Button onClick={handler.editGameFolder} style={rowContent}>
+				<Button onClick={() => handler.editGameFolder()} style={rowContent}>
 					<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
 				</Button>
 			</Row>
@@ -39,7 +39,7 @@ function Settings(props) {
 			</Row>
 			<Row style={row2}>
 				<div style={rowContent}>{props.appFolder}</div>
-				<Button onClick={handler.editAppFolder} style={rowContent}>
+				<Button onClick={() => handler.editAppFolder()} style={rowContent}>
 					<Icon icon={config.icons.EDIT} color={config.css.colors.icon} size={config.css.iconSize} />
 				</Button>
 			</Row>

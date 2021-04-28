@@ -25,18 +25,24 @@ SaveManager.prototype = {
 		});
 	},
 
-	saveData: function (key, value) {
+	saveData: function (key, value, callback) {
 		fs.access(this.savePath, (err) => {
 			if (err) {
 				let data = {};
 				data[key] = value;
-				fs.writeFile(this.savePath, JSON.stringify(data), () => {});
+				fs.writeFileSync(this.savePath, JSON.stringify(data), 'utf8');
+				if (callback) {
+					callback();
+				}
 			} else {
 				fs.readFile(this.savePath, 'utf8', (err, data) => {
 					if (err) return;
 					let dataJson = JSON.parse(data || '{}');
 					dataJson[key] = value;
-					fs.writeFile(this.savePath, JSON.stringify(dataJson), () => {});
+					fs.writeFileSync(this.savePath, JSON.stringify(dataJson));
+					if (callback) {
+						callback();
+					}
 				});
 			}
 		});
@@ -47,7 +53,7 @@ SaveManager.prototype = {
 			if (err) {
 				let data = {};
 				data[key] = [value];
-				fs.writeFile(this.savePath, JSON.stringify(data), () => {});
+				fs.writeFileSync(this.savePath, JSON.stringify(data), 'utf8');
 				if (callback) callback();
 			} else {
 				fs.readFile(this.savePath, 'utf8', (err, data) => {
@@ -56,7 +62,7 @@ SaveManager.prototype = {
 					let list = dataJson[key] || [];
 					list.push(value);
 					dataJson[key] = list;
-					fs.writeFile(this.savePath, JSON.stringify(dataJson), () => {});
+					fs.writeFileSync(this.savePath, JSON.stringify(dataJson));
 					if (callback) callback();
 				});
 			}
@@ -68,7 +74,7 @@ SaveManager.prototype = {
 			if (err) {
 				let data = {};
 				data[key] = [];
-				fs.writeFile(this.savePath, JSON.stringify(data), () => {});
+				fs.writeFileSync(this.savePath, JSON.stringify(data), 'utf8');
 				if (callback) callback();
 			} else {
 				fs.readFile(this.savePath, 'utf8', (err, data) => {
@@ -86,7 +92,7 @@ SaveManager.prototype = {
 						}
 						
 					});
-					fs.writeFile(this.savePath, JSON.stringify(dataJson), () => {});
+					fs.writeFileSync(this.savePath, JSON.stringify(dataJson), 'utf8');
 					if (callback) callback(removed);
 				});
 			}

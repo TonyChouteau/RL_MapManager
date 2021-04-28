@@ -156,20 +156,74 @@ FileManager.prototype = {
 			this.saveManager.saveData('selected', data);
 			this.message('selected', data);
 		} else {
-			this.saveManager.getData('selected', (savedData) => {
-				this.message('selected', savedData || 0);
+			this.saveManager.getData('selected', (selected) => {
+				this.saveManager.getData('list', (list) => {
+					list = list || [];
+					if (selected >= list.length) {
+						selected = null;
+					}
+					this.message('selected', selected || null);
+				})
 			});
 		}
 	},
 
 	removeMap: function (id) {
-		this.saveManager.removeIndexFromList("list", id, (removed) => {
-			let mapPath = path.join(this.currentAppPath, 'MAPS', (removed || "") + '.upk');
-			console.log(mapPath);
+		this.saveManager.removeIndexFromList('list', id, (removed) => {
+			let mapPath = path.join(this.currentAppPath, 'MAPS', (removed || '') + '.upk');
 			fs.unlink(mapPath, (err) => {
 				this.handleCustomMapFolder();
 			});
-		})
+		});
+	},
+
+	switchActive: function (change) {
+		this.saveManager.getData('active', (active) => {
+			if (active === undefined) {
+				active = false;
+			}
+			if (change) {
+				active = !active;
+				this.saveManager.saveData('active', active, () => this.handleCustomMap());
+			}
+			this.message('active', active);
+		});
+	},
+
+	handleCustomMap: function () {
+		if (this.currentGamePath === null) {
+			return;
+		}
+		let default_map = path.join('MAP_OLD', config.default_map);
+		let map_folder = path.join(this.currentGamePath, config.map_folder, config.default_map);
+		this.saveManager.getData('active', (active) => {
+			if (active) {
+				this.saveManager.getData('selected', (selected) => {
+					if (selected !== null && selected !== undefined) {
+						this.saveManager.getData('list', (list) => {
+							let custom_map = path.join(this.currentAppPath, 'MAPS', list[selected]+".upk");
+							fs.copyFile(custom_map, map_folder, (err) => {
+								if (err) return;
+								dialog.showMessageBox(this.win, {
+									title: 'Success',
+									message:
+									`${config.default_map} has been change to the custom map : ${list[selected]}.`,
+								});
+							});
+						});
+						console.log('Add');
+					}
+				});
+			} else {
+				fs.copyFile(default_map, map_folder, (err) => {
+					if (err) return;
+					dialog.showMessageBox(this.win, {
+						title: 'Success',
+						message: `The default map ${config.default_map} is reset`,
+					});
+				});
+			}
+		});
 	},
 
 	// Main event listener
@@ -194,6 +248,9 @@ FileManager.prototype = {
 		});
 		ipcMain.on('remove', (_, data) => {
 			this.removeMap(data);
+		});
+		ipcMain.on('switch-active', (_, data) => {
+			this.switchActive(data);
 		});
 	},
 };

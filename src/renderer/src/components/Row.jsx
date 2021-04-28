@@ -15,5 +15,8 @@ function Row(props) {
 	let { rowStyle } = makeStyles(config.css);
 
 	// Renderer
+	if (props.hide) {
+		return <div></div>;
+	}
 	return <div style={rowStyle}>{props.children}</div>;
 }

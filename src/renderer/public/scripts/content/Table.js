@@ -36,7 +36,7 @@ function Table(props) {
 		{ style: contentStyle },
 		React.createElement(
 			Row,
-			{ even: true, style: row1 },
+			{ even: true, style: row1, hide: props.selected === undefined || props.selected === null },
 			React.createElement(
 				'div',
 				{ style: rowContent },
@@ -55,11 +55,13 @@ function Table(props) {
 					},
 					React.createElement(Icon, { icon: config.icons.TRASH, color: config.css.colors.icon, size: config.css.iconSize })
 				),
-				React.createElement(
-					Switch,
-					null,
-					'O/X'
-				)
+				React.createElement(Switch, {
+					state: props.active ? Switch.ON : Switch.OFF,
+					size: config.css.iconSize,
+					onClick: function onClick() {
+						handler.switchActive();
+					}
+				})
 			)
 		),
 		props.list.map(function (map, id) {

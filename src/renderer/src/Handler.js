@@ -44,9 +44,16 @@ Handler.prototype = {
 				this.selectedHandler(selected);
 			}
 		});
-		window.api.send('get-path');
-		window.api.send('get-list');
-		window.api.send('handle-selected');
+		window.api.receive('active', (active) => {
+			this.active = active;
+			if (this.activeHandler) {
+				this.activeHandler(active);
+			}
+		})
+		this.message('get-path');
+		this.message('get-list');
+		this.message('handle-selected');
+		this.message('switch-active');
 	},
 
 	// Asynchronous Getters
@@ -82,6 +89,12 @@ Handler.prototype = {
 			return handler(this.selected);
 		}
 	},
+	getActive: function (handler) {
+		this.activeHandler = handler;
+		if (this.active) {
+			return handler(this.active);
+		}
+	},
 
 	// Edit Path Handler
 	editAppFolder: function () {
@@ -110,15 +123,23 @@ Handler.prototype = {
 		});
 	},
 	setSelected: function (id) {
+		this.switchActive(false);
 		this.message('handle-selected', id);
 	},
 	deleteMap: function (id) {
 		if (this.selected === id) {
-			this.selectedHandler(null);
+			this.setSelected(null);
 		} else if (this.selected > id) {
 			this.selected--;
-			this.selectedHandler(this.selected);
+			this.setSelected(this.selected);
 		}
 		this.message('remove', id);
 	},
+	switchActive: function(state) {
+		let newState = true;
+		if (state !== undefined) {
+			newState = (state !== this.active);
+		}
+		this.message('switch-active', newState);
+	}
 };

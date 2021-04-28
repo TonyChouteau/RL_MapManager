@@ -19,6 +19,9 @@ function Row(props) {
 	// Renderer
 
 
+	if (props.hide) {
+		return React.createElement('div', null);
+	}
 	return React.createElement(
 		'div',
 		{ style: rowStyle },
