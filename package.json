@@ -81,6 +81,11 @@
 			"!tmp",
 			"!dist"
 		],
+		"extraFiles" : [
+			"MAP_OLD/*",
+			"MAPS/*",
+			"save.json"
+		],
 		"nsis": {
 			"include": "./build/installer.nsh"
 		},
@@ -88,7 +93,7 @@
 		"win": {
 			"icon": "./build/app_icon.ico",
 			"target": [
-				"portable"
+				"portable", "nsis"
 			]
 		}
 	}

@@ -211,7 +211,6 @@ FileManager.prototype = {
 								});
 							});
 						});
-						console.log('Add');
 					}
 				});
 			} else {
