@@ -19,7 +19,7 @@ function Content(props) {
 	function MakeContent() {
 		switch (props.state) {
 			case config.states.LIST:
-				return React.createElement(Table, { list: props.list, selected: props.selected, active: props.active });
+				return React.createElement(Table, { list: props.list, selected: props.selected, active: props.active, gameFolder: props.gameFolder });
 
 			case config.states.IMPORT:
 				return React.createElement(Import, { count: props.list.length });

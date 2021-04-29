@@ -18,7 +18,7 @@ function Switch(props) {
 			width: props.size + 'px',
 			height: props.size + 'px',
 			borderRadius: props.size / 2 + 'px ',
-			background: 'white',
+			background: props.disabled ? 'grey' : 'white',
 			pointerEvent: 'none',
 		};
 		if (props.state === Switch.ON) {
@@ -35,7 +35,14 @@ function Switch(props) {
 	// Renderer
 	return (
 		<div style={contentStyle}>
-			<div style={switchStyle} onClick={props.onClick}>
+			<div
+				style={switchStyle}
+				onClick={() => {
+					if (!props.disabled) {
+						props.onClick();
+					}
+				}}
+			>
 				<div style={circleStyle}></div>
 			</div>
 		</div>

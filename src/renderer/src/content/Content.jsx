@@ -15,7 +15,7 @@ function Content(props) {
 	function MakeContent() {
 		switch (props.state) {
 			case config.states.LIST:
-				return <Table list={props.list} selected={props.selected} active={props.active}></Table>;
+				return <Table list={props.list} selected={props.selected} active={props.active} gameFolder={props.gameFolder}></Table>;
 
 			case config.states.IMPORT:
 				return <Import count={props.list.length}/>;

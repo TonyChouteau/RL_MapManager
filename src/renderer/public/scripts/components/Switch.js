@@ -18,7 +18,7 @@ function Switch(props) {
 			width: props.size + 'px',
 			height: props.size + 'px',
 			borderRadius: props.size / 2 + 'px ',
-			background: 'white',
+			background: props.disabled ? 'grey' : 'white',
 			pointerEvent: 'none'
 		};
 		if (props.state === Switch.ON) {
@@ -44,7 +44,14 @@ function Switch(props) {
 		{ style: contentStyle },
 		React.createElement(
 			'div',
-			{ style: switchStyle, onClick: props.onClick },
+			{
+				style: switchStyle,
+				onClick: function onClick() {
+					if (!props.disabled) {
+						props.onClick();
+					}
+				}
+			},
 			React.createElement('div', { style: circleStyle })
 		)
 	);

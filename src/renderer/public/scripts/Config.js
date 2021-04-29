@@ -62,7 +62,7 @@ var config = {
 		EDIT: 'edit.svg',
 		SETTINGS: 'settings.svg',
 		ADD: 'add.svg',
-		TRASH: 'trash.svg',
+		TRASH: 'trash.svg'
 	},
 	gamePathDefault: 'Exemple: "C:\\Program Files (x86)\\rocketleague"',
 	allowedExtensions: ['zip', 'rar', 'udk', 'upk']

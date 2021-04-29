@@ -162,7 +162,7 @@ FileManager.prototype = {
 					if (selected >= list.length) {
 						selected = null;
 					}
-					this.message('selected', selected || null);
+					this.message('selected', (selected === undefined || selected === null) ? null : selected);
 				})
 			});
 		}
@@ -194,6 +194,7 @@ FileManager.prototype = {
 		if (this.currentGamePath === null) {
 			return;
 		}
+		console.log("x");
 		let default_map = path.join('MAP_OLD', config.default_map);
 		let map_folder = path.join(this.currentGamePath, config.map_folder, config.default_map);
 		this.saveManager.getData('active', (active) => {

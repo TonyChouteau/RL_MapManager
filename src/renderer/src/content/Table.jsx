@@ -42,6 +42,7 @@ function Table(props) {
 						onClick={() => {
 							handler.switchActive();
 						}}
+						disabled={!props.gameFolder}
 					></Switch>
 				</div>
 			</Row>

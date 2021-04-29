@@ -60,7 +60,8 @@ function Table(props) {
 					size: config.css.iconSize,
 					onClick: function onClick() {
 						handler.switchActive();
-					}
+					},
+					disabled: !props.gameFolder
 				})
 			)
 		),
