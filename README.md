@@ -4,7 +4,9 @@ A map manage for Rocket League (Epic version) made with Electron
 
 ## Use the App
 
->TODO
+![List](https://raw.githubusercontent.com/TonyChouteau/RL_MapManager/main/doc/Capture%20d%E2%80%99%C3%A9cran%202021-05-02%20000052.png)
+![Settings](https://raw.githubusercontent.com/TonyChouteau/RL_MapManager/main/doc/Capture%20d%E2%80%99%C3%A9cran%202021-05-02%20000132.png)
+![Import](https://raw.githubusercontent.com/TonyChouteau/RL_MapManager/main/doc/Capture%20d%E2%80%99%C3%A9cran%202021-05-02%20000453.png)
 
 ## Development
 
