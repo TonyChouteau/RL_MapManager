@@ -30,4 +30,3 @@ A map manage for Rocket League (Epic version) made with Electron
 ### Build with electron-builder
 
 `$ npm install electron-builder --save-dev` \
-``
